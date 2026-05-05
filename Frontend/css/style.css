@@ -110,18 +110,20 @@ a[href*="wa.me"]:hover {
 
 .perfil-img {
     width: 100%;
-    height: 280px;
-    border-radius: 10px;
+    height: 340px;
+    min-height: 340px;
+    border-radius: 12px;
     display: block;
     margin: 0 auto 18px;
     border: 2px solid #3498db;
     object-fit: cover;
     object-position: center center;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, transform 0.3s ease;
 }
 
 .perfil-img:hover {
     border-color: #2980b9;
+    transform: scale(1.02);
 }
 
 .perfil-link span {
@@ -134,6 +136,129 @@ a[href*="wa.me"]:hover {
 .equipe-item p {
     margin: 0 0 12px;
     color: #555;
+}
+
+/* Botão Saiba Mais */
+.saiba-mais-btn {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.saiba-mais-btn:hover {
+    background-color: #357abd;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 2% auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 10px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+    color: #000;
+}
+
+.psychologist-detail {
+    padding: 30px;
+    overflow-y: auto;
+    max-height: calc(90vh - 60px);
+    flex: 1;
+}
+
+.psychologist-detail img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #4a90e2;
+    margin-bottom: 20px;
+}
+
+.psychologist-detail h2 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 28px;
+}
+
+.psychologist-detail .title {
+    color: #7f8c8d;
+    font-style: italic;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.detail-section {
+    margin-bottom: 25px;
+}
+
+.detail-section h3 {
+    color: #34495e;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.detail-section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.detail-section li {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 .servicos-grid {
@@ -214,6 +339,192 @@ footer {
     text-align: center;
     padding: 20px;
 }
+
+/* Multi-step form */
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+
+/* Scroll buttons for psychologist modal */
+.scroll-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.scroll-btn:hover {
+    background-color: #45a049;
+}
+
+.detail-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid #4CAF50;
+}
+
+.detail-section h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 18px;
+}
+
+button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    cursor: pointer;
+    margin: 10px 5px;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #357abd;
+}
+
+/* Confirmation */
+#confirmacao {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Appointments list */
+.appointment-item {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.appointment-item.pending {
+    border-left: 5px solid #ffc107;
+}
+
+.appointment-item.confirmed {
+    border-left: 5px solid #28a745;
+}
+
+/* Admin panel */
+#admin-panel {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.admin-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.admin-card {
+    background: #ffffff;
+    border: 1px solid #d0d7df;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+}
+
+.admin-card h3 {
+    margin-top: 0;
+    color: #34495e;
+}
+
+.admin-section {
+    background: #ffffff;
+    border: 1px solid #d0d7df;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 20px;
+}
+
+.admin-section h3 {
+    margin-top: 0;
+}
+
+.service-card,
+.appointment-admin-item,
+.available-time-item {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+button.secondary-button {
+    background-color: #7f8c8d;
+}
+
+button.secondary-button:hover {
+    background-color: #5d6d7e;
+}
+
+/* Login form */
+#admin-login-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+#admin-login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #d0d7df;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+#admin-login-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#admin-login-form button:hover {
+    background-color: #357abd;
+}
+
+/* User info */
+.user-info {
+    background: #e8f4fd;
+    border: 1px solid #b3d9ff;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
 
 /* Estilos para a seção Como Funciona */
 .passos-grid {

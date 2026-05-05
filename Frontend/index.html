@@ -20,6 +20,7 @@
     <a href="#equipe">Equipe</a> |
     <a href="#servicos">Serviços</a> |
     <a href="agendar.html">Agendamento</a> |
+    <a href="admin.html">Administração</a> |
     <a href="#contato">Contato</a>
 </nav>
 
@@ -82,32 +83,42 @@
 
     <div class="equipe-grid">
 
-        <article class="equipe-item">
-            <img src="https://i.pinimg.com/474x/6e/a6/b3/6ea6b30164c99f049eee50a9f2a51372.jpg"
-                 alt="Dra. Ana Silva" class="perfil-img">
-            <h3>Dra. Ana Silva</h3>
-            <p>Psicóloga clínica (CRP 00/00000)</p>
-            <p>Profissional formada em psicologia pela USP e pós-graduação pela UniCatólica, com especialização em terapia cognitivo-comportamental, atendimento a adolescentes e orientação emocional.</p>
+        <article class="equipe-item" id="equipe-1">
+            <img src="" alt="" class="perfil-img" id="img-1">
+            <h3 id="name-1"></h3>
+            <p id="title-1"></p>
+            <p id="bio-1"></p>
+            <button class="saiba-mais-btn" onclick="showPsychologistDetails(1)">Saiba Mais</button>
         </article>
 
-        <article class="equipe-item">
-            <img src="https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=600"
-                 alt="Dr. Carlos Souza" class="perfil-img">
-            <h3>Dr. Carlos Souza</h3>
-            <p>Psicólogo (CRP 00/00001)</p>
-            <p>Profissional formado em psicologia pela UFBA e pós-graduação pela Faculdade de Psicologia, com especialização em terapia de casal e orientação familiar.</p>
+        <article class="equipe-item" id="equipe-2">
+            <img src="" alt="" class="perfil-img" id="img-2">
+            <h3 id="name-2"></h3>
+            <p id="title-2"></p>
+            <p id="bio-2"></p>
+            <button class="saiba-mais-btn" onclick="showPsychologistDetails(2)">Saiba Mais</button>
         </article>
 
-        <article class="equipe-item">
-            <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=600"
-                 alt="Dra. Juliana Costa" class="perfil-img">
-            <h3>Dra. Juliana Costa</h3>
-            <p>Psicóloga (CRP 00/00002)</p>
-            <p>Profissional formada em psicologia pela UFRJ e pós-graduação pela Escola de Psicologia, com especialização em terapia cognitivo-comportamental e atendimento a adolescentes.</p>
+        <article class="equipe-item" id="equipe-3">
+            <img src="" alt="" class="perfil-img" id="img-3">
+            <h3 id="name-3"></h3>
+            <p id="title-3"></p>
+            <p id="bio-3"></p>
+            <button class="saiba-mais-btn" onclick="showPsychologistDetails(3)">Saiba Mais</button>
         </article>
 
     </div>
 </section>
+
+<!-- Modal para detalhes dos psicólogos -->
+<div id="psychologist-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closePsychologistModal()">&times;</span>
+        <div id="psychologist-details">
+            <!-- Conteúdo será preenchido dinamicamente -->
+        </div>
+    </div>
+</div>
 
 <hr>
 
@@ -175,7 +186,18 @@
     <a href="https://wa.me/5599999999999?text=Olá,%20preciso%20de%20atendimento%20psicológico" target="_blank">
         💬 Falar com um psicólogo agora
     </a>
-
+    <br><br>
+    <a href="https://www.google.com/maps/place/Rua+das+Flores,+123,+São+Paulo+-+SP" target="_blank">
+        📍 Ver localização no Google Maps
+    </a>
+    <br><br>
+    <h3>Redes Sociais:</h3>
+    <a href="https://www.facebook.com/clinicaequilibrio" target="_blank">Facebook</a> |
+    <a href="https://www.instagram.com/clinicaequilibrio" target="_blank">Instagram</a> |
+    <a href="https://www.linkedin.com/company/clinicaequilibrio" target="_blank">LinkedIn</a>
+    <br><br>
+    <h3>Atendimento com urgência:</h3>
+    <p>Se você ou alguém que você conhece está passando por uma crise emocional, ligue para o CVV (Centro de Valorização da Vida) no número 188 ou acesse <a href="https://www.cvv.org.br" target="_blank">cvv.org.br</a> para suporte imediato.</p>
 </section>
 
 </main>
@@ -184,10 +206,9 @@
 
 <footer>
     <p>&copy; 2026 Clínica de Psicologia Equilíbrio</p>
-    <link href=""
 </footer>
 
-<script src="js.js"></script>
+<script src="js/script.js"></script>
 
 </body>
-</html>>
+</html>    

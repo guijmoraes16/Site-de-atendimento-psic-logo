@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração - Clínica de Psicologia Equilíbrio</title>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <h1>Administração Clínica</h1>
+    <p>Gestão de agendamentos, horários e serviços.</p>
+</header>
+
+<nav>
+    <a href="index.html">Início</a> |
+    <a href="agendar.html">Agendamento</a> |
+    <a href="admin.html">Administração</a>
+</nav>
+
+<main id="admin-page">
+    <section id="admin-login">
+        <h2>Login Administrativo</h2>
+        <p>Acesso restrito para funcionários autorizados.</p>
+        <form id="admin-login-form">
+            <label for="admin-email">Email:</label>
+            <input type="email" id="admin-email" required placeholder="seuemail@clinicaequilibrio.com">
+
+            <label for="admin-password">Senha:</label>
+            <input type="password" id="admin-password" required placeholder="Digite sua senha">
+
+            <button type="submit">Entrar</button>
+        </form>
+        <div id="login-error" style="color: red; margin-top: 10px; display: none;"></div>
+    </section>
+
+    <section id="admin-panel" style="display:none;">
+        <h2>Bem-vindo ao Painel Administrativo</h2>
+        <div class="admin-summary">
+            <div class="admin-card">
+                <h3>Total de Agendamentos</h3>
+                <p id="total-count">0</p>
+            </div>
+            <div class="admin-card">
+                <h3>Pendentes</h3>
+                <p id="pending-count">0</p>
+            </div>
+            <div class="admin-card">
+                <h3>Confirmados</h3>
+                <p id="confirmed-count">0</p>
+            </div>
+        </div>
+
+        <div class="admin-section">
+            <h3>Consultas Pendentes</h3>
+            <div id="pending-appointments"></div>
+        </div>
+
+        <div class="admin-section">
+            <h3>Agendamentos</h3>
+            <div id="appointments-admin-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h3>Controle de Agendamento</h3>
+            <div class="admin-controls">
+                <label for="schedule-filter-date">Filtrar por data:</label>
+                <input type="date" id="schedule-filter-date" onchange="loadScheduleControl()">
+                <button onclick="loadScheduleControl()">Ver Agenda</button>
+                <button class="secondary-button" onclick="resetScheduleFilter()">Mostrar Todos</button>
+            </div>
+            <div id="schedule-control-list"></div>
+        </div>
+
+        <div class="admin-section">
+            <h3>Horários Disponíveis</h3>
+            <div class="admin-controls">
+                <label for="admin-data">Data:</label>
+                <input type="date" id="admin-data">
+                <label for="admin-hora">Horário:</label>
+                <select id="admin-hora">
+                    <option value="09:00">09:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                </select>
+                <button onclick="addAvailableTime()">Adicionar horário</button>
+                <button class="secondary-button" onclick="removeAvailableTime()">Remover horário</button>
+            </div>
+            <div id="available-times-admin"></div>
+        </div>
+
+        <div class="admin-section">
+            <h3>Serviços</h3>
+            <div id="services-admin-list"></div>
+        </div>
+
+        <button class="secondary-button" onclick="logoutAdmin()">Sair</button>
+    </section>
+</main>
+
+<hr>
+
+<footer>
+    <p>&copy; 2026 Clínica de Psicologia Equilíbrio</p>
+</footer>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

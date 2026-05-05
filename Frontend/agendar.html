@@ -18,7 +18,8 @@
     <a href="index.html#sobre">Sobre</a> |
     <a href="index.html#equipe">Equipe</a> |
     <a href="index.html#servicos">Serviços</a> |
-    <a href="index.html#contato">Contato</a>
+    <a href="index.html#contato">Contato</a> |
+    <a href="admin.html">Administração</a>
 </nav>
 
 <main>
@@ -61,36 +62,100 @@
     <h2>Preencha os Dados para Agendar</h2>
     <p>Após o envio, entraremos em contato para confirmar a data e horário. Todas as informações são confidenciais.</p>
 
-    <form action="#" method="post">
-        <label for="nome">Nome Completo:</label>
-        <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo">
+    <div id="form-steps">
+        <div id="step-1" class="step active">
+            <h3>Passo 1: Escolha o Serviço</h3>
+            <label for="servico">Tipo de Serviço:</label>
+            <select id="servico" name="servico" required>
+                <option value="">Selecione um serviço</option>
+                <option value="individual">Terapia Individual</option>
+                <option value="casal">Terapia de Casal</option>
+                <option value="online">Atendimento Online</option>
+                <option value="orientacao">Orientação Psicológica</option>
+            </select>
+            <button type="button" onclick="nextStep(1)">Próximo</button>
+        </div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required placeholder="seuemail@exemplo.com">
+        <div id="step-2" class="step">
+            <h3>Passo 2: Seus Dados</h3>
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo">
+            <button type="button" onclick="generateRandomUser()">Gerar Dados Aleatórios</button><br>
 
-        <label for="telefone">Telefone/WhatsApp:</label>
-        <input type="tel" id="telefone" name="telefone" required placeholder="(11) 99999-9999">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required placeholder="seuemail@exemplo.com">
 
-        <label for="servico">Tipo de Serviço:</label>
-        <select id="servico" name="servico" required>
-            <option value="">Selecione um serviço</option>
-            <option value="individual">Terapia Individual</option>
-            <option value="casal">Terapia de Casal</option>
-            <option value="online">Atendimento Online</option>
-            <option value="orientacao">Orientação Psicológica</option>
+            <label for="telefone">Telefone/WhatsApp:</label>
+            <input type="tel" id="telefone" name="telefone" required placeholder="(11) 99999-9999">
+
+            <button type="button" onclick="prevStep(2)">Anterior</button>
+            <button type="button" onclick="nextStep(2)">Próximo</button>
+        </div>
+
+        <div id="step-3" class="step">
+            <h3>Passo 3: Data e Horário</h3>
+            <label for="data">Data Preferida:</label>
+            <input type="date" id="data" name="data" required>
+
+            <label for="hora">Horário Preferido:</label>
+            <select id="hora" name="hora" required>
+                <option value="">Selecione um horário</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+            </select>
+
+            <label for="mensagem">Mensagem (opcional):</label>
+            <textarea id="mensagem" name="mensagem" placeholder="Conte-nos brevemente sobre sua necessidade ou dúvida"></textarea>
+
+            <button type="button" onclick="prevStep(3)">Anterior</button>
+            <button type="button" onclick="submitForm()">Enviar Agendamento</button>
+        </div>
+    </div>
+</section>
+
+<hr>
+
+<section id="confirmacao" style="display:none;">
+    <h2>Confirmação</h2>
+    <div id="confirmacao-content"></div>
+</section>
+
+<hr>
+
+<section id="listagem">
+    <h2>Consultas Agendadas</h2>
+    <div id="appointments-list"></div>
+</section>
+
+<hr>
+
+<section id="admin" style="display:none;">
+    <h2>Painel Administrativo</h2>
+    <p>Acesso para secretária gerenciar horários.</p>
+    <button onclick="showAdmin()">Entrar como Admin</button>
+    <div id="admin-panel" style="display:none;">
+        <h3>Gerenciar Horários Disponíveis</h3>
+        <label for="admin-data">Data:</label>
+        <input type="date" id="admin-data">
+        <label for="admin-hora">Horário:</label>
+        <select id="admin-hora">
+            <option value="09:00">09:00</option>
+            <option value="10:00">10:00</option>
+            <option value="11:00">11:00</option>
+            <option value="14:00">14:00</option>
+            <option value="15:00">15:00</option>
+            <option value="16:00">16:00</option>
         </select>
-
-        <label for="data">Data Preferida:</label>
-        <input type="date" id="data" name="data" required>
-
-        <label for="hora">Horário Preferido:</label>
-        <input type="time" id="hora" name="hora" required>
-
-        <label for="mensagem">Mensagem (opcional):</label>
-        <textarea id="mensagem" name="mensagem" placeholder="Conte-nos brevemente sobre sua necessidade ou dúvida"></textarea>
-
-        <input type="submit" value="Enviar Agendamento">
-    </form>
+        <button onclick="addAvailableTime()">Adicionar Horário Disponível</button>
+        <button onclick="removeAvailableTime()">Remover Horário Disponível</button>
+        <div id="available-times"></div>
+        <h3>Confirmar Consultas</h3>
+        <div id="pending-appointments"></div>
+    </div>
 </section>
 
 </main>
@@ -102,7 +167,7 @@
     <p>Rua das Flores, 123 - Centro, São Paulo - SP | contato@clinicaequilibrio.com | (11) 0000-0000</p>
 </footer>
 
-<script src="js.js"></script>
+<script src="js/script.js"></script>
 
 </body>
 </html>
