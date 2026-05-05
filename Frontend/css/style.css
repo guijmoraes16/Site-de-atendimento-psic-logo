@@ -240,7 +240,34 @@ a[href*="wa.me"]:hover {
     margin-bottom: 15px;
     font-size: 18px;
 }
+.social-links {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
 
+.social-link {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f6fb;
+    border-radius: 50%;
+    color: #4a90e2;
+    text-decoration: none;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.social-link:hover {
+    transform: translateY(-2px);
+    background-color: #e6f0fb;
+}
+
+.social-icon {
+    width: 22px;
+    height: 22px;
+}
 .detail-section ul {
     list-style-type: disc;
     padding-left: 20px;
