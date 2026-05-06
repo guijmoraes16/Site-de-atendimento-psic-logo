@@ -265,15 +265,16 @@ function updateServiceOptions() {
 // Generate team profiles using Random User API
 async function generateTeamProfiles() {
     try {
-        const response = await fetch('https://randomuser.me/api/?results=3&nat=br');
+        const response = await fetch('https://randomuser.me/api/?results=4&nat=br');
         const data = await response.json();
         const users = data.results;
 
-        const titles = ['Psicóloga clínica', 'Psicólogo', 'Psicóloga'];
+        const titles = ['Psicóloga clínica', 'Psicólogo', 'Psicóloga', 'Psicóloga de orientação familiar'];
         const bios = [
             'Profissional formada em psicologia pela USP e pós-graduação pela UniCatólica, com especialização em terapia cognitivo-comportamental, atendimento a adolescentes e orientação emocional.',
             'Profissional formado em psicologia pela UFBA e pós-graduação pela Faculdade de Psicologia, com especialização em terapia de casal e orientação familiar.',
-            'Profissional formada em psicologia pela UFRJ e pós-graduação pela Escola de Psicologia, com especialização em terapia cognitivo-comportamental e atendimento a adolescentes.'
+            'Profissional formada em psicologia pela UFRJ e pós-graduação pela Escola de Psicologia, com especialização em terapia cognitivo-comportamental e atendimento a adolescentes.',
+            'Profissional formada em psicologia pela PUC-SP, com mestrado em terapia familiar e ampla experiência em atendimento a casais, famílias e jovens.'
         ];
 
         users.forEach((user, index) => {
@@ -281,7 +282,7 @@ async function generateTeamProfiles() {
             document.getElementById(`img-${num}`).src = user.picture.large;
             document.getElementById(`img-${num}`).alt = `Dr(a). ${user.name.first} ${user.name.last}`;
             // Use consistent names for the detailed profiles
-            const consistentNames = ['Ana Silva', 'Carlos Souza', 'Juliana Costa'];
+            const consistentNames = ['Ana Silva', 'Carlos Souza', 'Juliana Costa', 'Fernanda Lima'];
             document.getElementById(`name-${num}`).textContent = `Dr(a). ${consistentNames[index]}`;
             document.getElementById(`title-${num}`).textContent = `${titles[index]} (${generateRandomCRP()})`;
             document.getElementById(`bio-${num}`).textContent = bios[index];
@@ -312,6 +313,12 @@ function setFallbackProfiles() {
             name: 'Dra. Juliana Costa',
             title: `Psicóloga (${generateRandomCRP()})`,
             bio: 'Profissional formada em psicologia pela UFRJ e pós-graduação pela Escola de Psicologia, com especialização em terapia cognitivo-comportamental e atendimento a adolescentes.'
+        },
+        {
+            img: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=600',
+            name: 'Dra. Fernanda Lima',
+            title: `Psicóloga de Orientação Familiar (${generateRandomCRP()})`,
+            bio: 'Profissional formada em psicologia pela PUC-SP e com mestrado em terapia familiar, atuando no apoio a casais, famílias e jovens em transição de vida.'
         }
     ];
 
@@ -419,6 +426,35 @@ const psychologistDetails = [
             "Abordagem Desenvolvimento",
             "Orientação Vocacional Sistemática"
         ]
+    },
+    {
+        name: "Dra. Fernanda Lima",
+        title: "Psicóloga de Orientação Familiar",
+        crp: "CRP 09/45678",
+        education: [
+            "Graduação em Psicologia - PUC-SP (Pontifícia Universidade Católica de São Paulo)",
+            "Mestrado em Terapia Familiar - Universidade de São Paulo",
+            "Especialização em Psicologia Clínica e Sistêmica - SBP"
+        ],
+        specializations: [
+            "Terapia de casal e família",
+            "Conflitos relacionais",
+            "Apoio a jovens e transições familiares",
+            "Comunicação não-violenta",
+            "Resolução de conflitos" 
+        ],
+        experience: [
+            "9 anos de experiência em atendimento familiar",
+            "Coordenadora de grupos terapêuticos para casais",
+            "Consultora em projetos de qualidade de vida emocional",
+            "Atendimento em clínicas e consultórios privados"
+        ],
+        approaches: [
+            "Terapia Sistêmica",
+            "Terapia Familiar",
+            "Abordagem Humanista",
+            "Técnicas de Mindfulness para famílias"
+        ]
     }
 ];
 
@@ -428,7 +464,7 @@ function showPsychologistDetails(index) {
 
     // Use specific images for women
     let imgSrc;
-    if (psychologist.name.includes('Ana') || psychologist.name.includes('Juliana')) {
+    if (psychologist.name.startsWith('Dra.')) {
         // Use a professional woman image for female psychologists
         imgSrc = 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
     } else {
