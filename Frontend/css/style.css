@@ -1,3 +1,5 @@
+
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -7,11 +9,21 @@ body {
 }
 
 header {
-    background-color: #ffffff;
-    color: #2c3e50;
-    padding: 40px 20px;
+    background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url("https://st4.depositphotos.com/13193658/41835/i/450/depositphotos_418357116-stock-photo-multiethnic-people-smiling-camera-embracing.jpg");
+    background-size: 100%;
+    background-position: 25% 10%;
+    background-repeat: no-repeat;
+    color: white;
+    padding: 35px 20px;
+    min-height: 30px;
     text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+header h1{
+    margin-top: 40px;
+    font-size: 2.8em;
+    font-weight: 300;
 }
 
 nav {
