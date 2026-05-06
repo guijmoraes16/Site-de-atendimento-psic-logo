@@ -286,6 +286,7 @@ async function generateTeamProfiles() {
             document.getElementById(`name-${num}`).textContent = `Dr(a). ${consistentNames[index]}`;
             document.getElementById(`title-${num}`).textContent = `${titles[index]} (${generateRandomCRP()})`;
             document.getElementById(`bio-${num}`).textContent = bios[index];
+            document.getElementById(`equipe-${num}`).insertAdjacentHTML('beforeend', '<div class="badges"><span class="badge">CRP</span><span class="badge">Especialista</span></div>');
         });
     } catch (error) {
         console.error('Erro ao gerar perfis da equipe:', error);
@@ -329,6 +330,7 @@ function setFallbackProfiles() {
         document.getElementById(`name-${num}`).textContent = profile.name;
         document.getElementById(`title-${num}`).textContent = profile.title;
         document.getElementById(`bio-${num}`).textContent = profile.bio;
+        document.getElementById(`equipe-${num}`).insertAdjacentHTML('beforeend', '<div class="badges"><span class="badge">CRP</span><span class="badge">Especialista</span></div>');
     });
 }
 
