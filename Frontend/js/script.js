@@ -7,10 +7,10 @@ let services = JSON.parse(localStorage.getItem('services')) || [
     { key: 'online', label: 'Atendimento Online', price: 'R$ 100', active: true },
     { key: 'orientacao', label: 'Orientação Psicológica', price: 'R$ 80', active: true }
 ];
-let availableTimes = JSON.parse(localStorage.getItem('availableTimes')) || [
-    { date: '2026-05-10', times: ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'] },
-    { date: '2026-05-11', times: ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'] }
-];
+
+// Selected date and time
+let selectedDate = null;
+let selectedTime = null;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loadAppointments();
         loadAvailableTimes();
         updateServiceOptions();
+        generateCalendar();
     }
 
     if (document.getElementById('admin-page')) {
@@ -63,8 +64,7 @@ function validateStep(step) {
                document.getElementById('email').value !== '' &&
                document.getElementById('telefone').value !== '';
     } else if (step === 3) {
-        return document.getElementById('data').value !== '' &&
-               document.getElementById('hora').value !== '';
+        return selectedDate !== null && selectedTime !== null;
     }
     return true;
 }
@@ -92,8 +92,8 @@ function submitForm() {
         email: document.getElementById('email').value,
         telefone: document.getElementById('telefone').value,
         servico: document.getElementById('servico').value,
-        data: document.getElementById('data').value,
-        hora: document.getElementById('hora').value,
+        data: selectedDate,
+        hora: selectedTime,
         mensagem: document.getElementById('mensagem').value,
         status: 'pending',
         id: Date.now()
@@ -107,10 +107,12 @@ function submitForm() {
 
     appointments.push(formData);
     localStorage.setItem('appointments', JSON.stringify(appointments));
+    localStorage.setItem('last-user-email', formData.email);
 
     showConfirmation(formData);
     loadAppointments();
     resetForm();
+    showFeedback('Agendamento realizado com sucesso!', 'success');
 }
 
 // Check if time is available
@@ -154,7 +156,27 @@ function loadAppointments() {
     if (!list) return;
     list.innerHTML = '';
 
-    appointments.forEach(app => {
+    const userEmail = localStorage.getItem('last-user-email');
+    const visibleAppointments = userEmail
+        ? appointments.filter(app => app.email === userEmail)
+        : appointments;
+
+    if (visibleAppointments.length === 0) {
+        const message = userEmail
+            ? 'Você ainda não tem agendamentos registrados com este email.'
+            : 'Nenhum agendamento registrado.';
+        list.innerHTML = `<p>${message}</p>`;
+        return;
+    }
+
+    if (userEmail) {
+        const userMessage = document.createElement('p');
+        userMessage.textContent = `Mostrando agenda para: ${userEmail}`;
+        userMessage.style.marginBottom = '16px';
+        list.appendChild(userMessage);
+    }
+
+    visibleAppointments.forEach(app => {
         const item = document.createElement('div');
         item.className = `appointment-item ${app.status}`;
         item.innerHTML = `
@@ -176,10 +198,14 @@ function resetForm() {
     document.getElementById('nome').value = '';
     document.getElementById('email').value = '';
     document.getElementById('telefone').value = '';
-    document.getElementById('data').value = '';
-    document.getElementById('hora').value = '';
     document.getElementById('mensagem').value = '';
     showStep(1);
+
+    // Reset selected date and time
+    selectedDate = null;
+    selectedTime = null;
+    updateSelectedAppointmentDisplay();
+    generateCalendar(); // Regenerate calendar to clear selections
 }
 
 // Show feedback
@@ -498,3 +524,139 @@ async function saveAppointment(data) {
     return response.json();
 }
 */
+
+// Calendar functions
+function generateCalendar() {
+    const calendarGrid = document.getElementById('calendar-grid');
+    if (!calendarGrid) return;
+
+    calendarGrid.innerHTML = '';
+
+    // Get next 21 days starting from today, but skip Sundays
+    const today = new Date();
+    let daysAdded = 0;
+    let currentDate = new Date(today);
+
+    while (daysAdded < 14) {
+        // Skip Sundays (0 = Sunday)
+        if (currentDate.getDay() !== 0) {
+            const dateString = currentDate.toISOString().split('T')[0];
+            const dayName = currentDate.toLocaleDateString('pt-BR', { weekday: 'short' });
+            const dayNumber = currentDate.getDate();
+            const monthName = currentDate.toLocaleDateString('pt-BR', { month: 'short' });
+            const dayOfWeek = currentDate.getDay(); // 1 = Monday, 6 = Saturday
+
+            // Generate available times based on day of week
+            let availableTimesForDay = [];
+            if (dayOfWeek >= 1 && dayOfWeek <= 5) { // Monday to Friday
+                availableTimesForDay = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'];
+            } else if (dayOfWeek === 6) { // Saturday
+                availableTimesForDay = ['09:00', '10:00', '11:00'];
+            }
+
+            // Check if this date has available times (considering existing appointments)
+            const existingAppointments = appointments.filter(app => app.data === dateString);
+            const availableTimesFiltered = availableTimesForDay.filter(time =>
+                !existingAppointments.some(app => app.hora === time)
+            );
+
+            const isAvailable = availableTimesFiltered.length > 0;
+            const isSelected = selectedDate === dateString;
+
+            const dayElement = document.createElement('div');
+            dayElement.className = `calendar-day ${isAvailable ? 'available' : 'unavailable'} ${isSelected ? 'selected' : ''}`;
+            dayElement.innerHTML = `
+                <div>${dayName}</div>
+                <div style="font-size: 24px; font-weight: bold;">${dayNumber}</div>
+                <div style="font-size: 12px;">${monthName}</div>
+            `;
+
+            if (isAvailable) {
+                dayElement.onclick = () => selectDate(dateString);
+            }
+
+            calendarGrid.appendChild(dayElement);
+            daysAdded++;
+        }
+
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+}
+
+function selectDate(dateString) {
+    selectedDate = dateString;
+    selectedTime = null; // Reset time when date changes
+
+    // Update calendar display
+    generateCalendar();
+
+    // Show time slots for selected date
+    showTimeSlots(dateString);
+
+    // Update confirmation display
+    updateSelectedAppointmentDisplay();
+}
+
+function showTimeSlots(dateString) {
+    const timeSlotsDiv = document.getElementById('time-slots');
+    const selectedDateSpan = document.getElementById('selected-date');
+    const timeButtonsDiv = document.getElementById('time-buttons');
+
+    const selectedDate = new Date(dateString);
+    const dayOfWeek = selectedDate.getDay(); // 0 = Sunday, 1 = Monday, 6 = Saturday
+
+    // Generate available times based on day of week
+    let availableTimesForDay = [];
+    if (dayOfWeek >= 1 && dayOfWeek <= 5) { // Monday to Friday
+        availableTimesForDay = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'];
+    } else if (dayOfWeek === 6) { // Saturday
+        availableTimesForDay = ['09:00', '10:00', '11:00'];
+    }
+
+    selectedDateSpan.textContent = selectedDate.toLocaleDateString('pt-BR');
+    timeButtonsDiv.innerHTML = '';
+
+    availableTimesForDay.forEach(time => {
+        const isAvailable = isTimeAvailable(dateString, time);
+        const isSelected = selectedTime === time;
+
+        const button = document.createElement('button');
+        button.className = `time-button ${isAvailable ? '' : 'unavailable'} ${isSelected ? 'selected' : ''}`;
+        button.textContent = time;
+        button.disabled = !isAvailable;
+
+        if (isAvailable) {
+            button.onclick = () => selectTime(time);
+        }
+
+        timeButtonsDiv.appendChild(button);
+    });
+
+    timeSlotsDiv.style.display = 'block';
+}
+
+function selectTime(time) {
+    selectedTime = time;
+
+    // Update time buttons display
+    const timeButtons = document.querySelectorAll('.time-button');
+    timeButtons.forEach(button => {
+        button.classList.remove('selected');
+        if (button.textContent === time) {
+            button.classList.add('selected');
+        }
+    });
+
+    // Update confirmation display
+    updateSelectedAppointmentDisplay();
+}
+
+function updateSelectedAppointmentDisplay() {
+    const confirmDate = document.getElementById('confirm-date');
+    const confirmTime = document.getElementById('confirm-time');
+
+    if (confirmDate && confirmTime) {
+        confirmDate.textContent = selectedDate ? new Date(selectedDate).toLocaleDateString('pt-BR') : '-';
+        confirmTime.textContent = selectedTime || '-';
+    }
+}
