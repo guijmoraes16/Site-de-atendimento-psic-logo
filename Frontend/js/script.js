@@ -263,35 +263,91 @@ function updateServiceOptions() {
 }
 
 // Generate team profiles using Random User API
+// Generate team profiles using Random User API
 async function generateTeamProfiles() {
     try {
         const response = await fetch('https://randomuser.me/api/?results=4&nat=br');
         const data = await response.json();
+
         const users = data.results;
 
-        const titles = ['Psicóloga clínica', 'Psicólogo', 'Psicóloga', 'Psicóloga de orientação familiar'];
-        const bios = [
-            'Profissional formada em psicologia pela USP e pós-graduação pela UniCatólica, com especialização em terapia cognitivo-comportamental, atendimento a adolescentes e orientação emocional.',
-            'Profissional formado em psicologia pela UFBA e pós-graduação pela Faculdade de Psicologia, com especialização em terapia de casal e orientação familiar.',
-            'Profissional formada em psicologia pela UFRJ e pós-graduação pela Escola de Psicologia, com especialização em terapia cognitivo-comportamental e atendimento a adolescentes.',
-            'Profissional formada em psicologia pela PUC-SP, com mestrado em terapia familiar e ampla experiência em atendimento a casais, famílias e jovens.'
+        const titles = [
+            'Psicóloga Clínica',
+            'Psicólogo Familiar',
+            'Psicóloga Infantil',
+            'Psicóloga Cognitiva'
         ];
 
-        users.forEach((user, index) => {
+        const specializations = [
+            [
+                "Ansiedade",
+                "Depressão",
+                "Terapia Cognitivo-Comportamental"
+            ],
+            [
+                "Terapia Familiar",
+                "Relacionamentos",
+                "Conflitos conjugais"
+            ],
+            [
+                "Psicologia Infantil",
+                "Adolescentes",
+                "Orientação emocional"
+            ],
+            [
+                "TCC",
+                "Autoconhecimento",
+                "Mindfulness"
+            ]
+        ];
+
+        psychologistDetails = users.map((user, index) => {
+
             const num = index + 1;
-            document.getElementById(`img-${num}`).src = user.picture.large;
-            document.getElementById(`img-${num}`).alt = `Dr(a). ${user.name.first} ${user.name.last}`;
-            // Use consistent names for the detailed profiles
-            const consistentNames = ['Ana Silva', 'Carlos Souza', 'Juliana Costa', 'Fernanda Lima'];
-            document.getElementById(`name-${num}`).textContent = `Dr(a). ${consistentNames[index]}`;
-            document.getElementById(`title-${num}`).textContent = `${titles[index]} (${generateRandomCRP()})`;
-            document.getElementById(`bio-${num}`).textContent = bios[index];
-            document.getElementById(`equipe-${num}`).insertAdjacentHTML('beforeend', '<div class="badges"><span class="badge">CRP</span><span class="badge">Especialista</span></div>');
+
+            const fullName = `${user.name.first} ${user.name.last}`;
+
+            const profile = {
+                name: `Dr(a). ${fullName}`,
+                title: titles[index],
+                crp: generateRandomCRP(),
+                image: user.picture.large,
+                bio: `Especialista em saúde emocional com ampla experiência clínica e atendimento humanizado.`,
+                education: [
+                    "Graduação em Psicologia",
+                    "Especialização em Terapia Clínica",
+                    "Formação complementar em saúde mental"
+                ],
+                specializations: specializations[index],
+                experience: [
+                    "Atendimento clínico presencial",
+                    "Atendimento online",
+                    "Acompanhamento emocional"
+                ],
+                approaches: [
+                    "Terapia Cognitivo-Comportamental",
+                    "Psicologia Humanista",
+                    "Mindfulness"
+                ]
+            };
+
+            // Preencher cards
+            document.getElementById(`img-${num}`).src = profile.image;
+            document.getElementById(`img-${num}`).alt = profile.name;
+
+            document.getElementById(`name-${num}`).textContent = profile.name;
+
+            document.getElementById(`title-${num}`).textContent =
+                `${profile.title} (${profile.crp})`;
+
+            document.getElementById(`bio-${num}`).textContent =
+                profile.bio;
+
+            return profile;
         });
+
     } catch (error) {
-        console.error('Erro ao gerar perfis da equipe:', error);
-        // Fallback to static profiles if API fails
-        setFallbackProfiles();
+        console.error('Erro ao carregar equipe:', error);
     }
 }
 
@@ -341,185 +397,72 @@ function generateRandomCRP() {
 }
 
 // Psychologist details data
-const psychologistDetails = [
-    {
-        name: "Dra. Ana Silva",
-        title: "Psicóloga Clínica",
-        crp: "CRP 06/12345",
-        education: [
-            "Graduação em Psicologia - USP (Universidade de São Paulo)",
-            "Pós-graduação em Terapia Cognitivo-Comportamental - UniCatólica",
-            "Especialização em Psicologia Clínica - SBP (Sociedade Brasileira de Psicologia)"
-        ],
-        specializations: [
-            "Terapia Cognitivo-Comportamental (TCC)",
-            "Atendimento a adolescentes e jovens adultos",
-            "Orientação emocional e desenvolvimento pessoal",
-            "Ansiedade e depressão",
-            "Transtornos de humor"
-        ],
-        experience: [
-            "8 anos de experiência clínica",
-            "Supervisora de estágio em psicologia",
-            "Palestrante em eventos sobre saúde mental",
-            "Atendimento em clínicas particulares e instituições"
-        ],
-        approaches: [
-            "Terapia Cognitivo-Comportamental",
-            "Abordagem Humanista",
-            "Psicologia Positiva",
-            "Mindfulness e técnicas de relaxamento"
-        ]
-    },
-    {
-        name: "Dr. Carlos Souza",
-        title: "Psicólogo",
-        crp: "CRP 07/23456",
-        education: [
-            "Graduação em Psicologia - UFBA (Universidade Federal da Bahia)",
-            "Pós-graduação em Terapia de Casal e Família - Faculdade de Psicologia",
-            "Especialização em Psicologia Sistêmica - ABRAPSI (Associação Brasileira de Psicologia Sistêmica)"
-        ],
-        specializations: [
-            "Terapia de Casal e Família",
-            "Orientação familiar e conflitos conjugais",
-            "Psicologia do desenvolvimento",
-            "Transtornos relacionais",
-            "Mediação familiar"
-        ],
-        experience: [
-            "10 anos de experiência em terapia familiar",
-            "Coordenador de grupos de apoio familiar",
-            "Consultor em empresas para programas de qualidade de vida",
-            "Atendimento em centros de saúde mental"
-        ],
-        approaches: [
-            "Terapia Sistêmica",
-            "Terapia Cognitivo-Comportamental",
-            "Abordagem Familiar Estrutural",
-            "Técnicas de comunicação não-violenta"
-        ]
-    },
-    {
-        name: "Dra. Juliana Costa",
-        title: "Psicóloga",
-        crp: "CRP 08/34567",
-        education: [
-            "Graduação em Psicologia - UFRJ (Universidade Federal do Rio de Janeiro)",
-            "Pós-graduação em Terapia Cognitivo-Comportamental - Escola de Psicologia",
-            "Especialização em Neuropsicologia - ABNeuro (Associação Brasileira de Neuropsicologia)"
-        ],
-        specializations: [
-            "Terapia Cognitivo-Comportamental",
-            "Neuropsicologia e avaliação cognitiva",
-            "Atendimento a adolescentes e jovens",
-            "Transtornos de aprendizagem",
-            "Orientação vocacional"
-        ],
-        experience: [
-            "7 anos de experiência clínica especializada",
-            "Avaliadora neuropsicológica em instituições educacionais",
-            "Orientadora vocacional em centros universitários",
-            "Pesquisadora em psicologia do desenvolvimento"
-        ],
-        approaches: [
-            "Terapia Cognitivo-Comportamental",
-            "Neuropsicologia",
-            "Abordagem Desenvolvimento",
-            "Orientação Vocacional Sistemática"
-        ]
-    },
-    {
-        name: "Dra. Fernanda Lima",
-        title: "Psicóloga de Orientação Familiar",
-        crp: "CRP 09/45678",
-        education: [
-            "Graduação em Psicologia - PUC-SP (Pontifícia Universidade Católica de São Paulo)",
-            "Mestrado em Terapia Familiar - Universidade de São Paulo",
-            "Especialização em Psicologia Clínica e Sistêmica - SBP"
-        ],
-        specializations: [
-            "Terapia de casal e família",
-            "Conflitos relacionais",
-            "Apoio a jovens e transições familiares",
-            "Comunicação não-violenta",
-            "Resolução de conflitos" 
-        ],
-        experience: [
-            "9 anos de experiência em atendimento familiar",
-            "Coordenadora de grupos terapêuticos para casais",
-            "Consultora em projetos de qualidade de vida emocional",
-            "Atendimento em clínicas e consultórios privados"
-        ],
-        approaches: [
-            "Terapia Sistêmica",
-            "Terapia Familiar",
-            "Abordagem Humanista",
-            "Técnicas de Mindfulness para famílias"
-        ]
-    }
-];
+let psychologistDetails = [];
 
 // Show psychologist details modal
 function showPsychologistDetails(index) {
-    const psychologist = psychologistDetails[index - 1];
 
-    // Use specific images for women
-    let imgSrc;
-    if (psychologist.name.startsWith('Dra.')) {
-        // Use a professional woman image for female psychologists
-        imgSrc = 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
-    } else {
-        // Use a professional man image for male psychologists
-        imgSrc = 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
-    }
+    const psychologist = psychologistDetails[index - 1];
 
     const detailsHTML = `
         <div class="psychologist-detail">
-            <img src="${imgSrc}" alt="${psychologist.name}" style="display: block; margin: 0 auto;">
+
+            <img src="${psychologist.image}"
+                 alt="${psychologist.name}"
+                 style="display:block; margin:0 auto;">
+
             <h2>${psychologist.name}</h2>
-            <p class="title">${psychologist.title} - ${psychologist.crp}</p>
 
-            <div class="scroll-controls" style="text-align: center; margin-bottom: 20px;">
-                <button onclick="scrollToSection('education')" class="scroll-btn">📚 Formação</button>
-                <button onclick="scrollToSection('specializations')" class="scroll-btn">🧠 Especialidades</button>
-                <button onclick="scrollToSection('experience')" class="scroll-btn">💼 Experiência</button>
-                <button onclick="scrollToSection('approaches')" class="scroll-btn">🔍 Abordagens</button>
-            </div>
+            <p class="title">
+                ${psychologist.title} - ${psychologist.crp}
+            </p>
 
-            <div id="education" class="detail-section">
-                <h3>🎓 Formação Acadêmica</h3>
+            <div class="detail-section">
+                <h3>🎓 Formação</h3>
+
                 <ul>
-                    ${psychologist.education.map(edu => `<li>${edu}</li>`).join('')}
+                    ${psychologist.education.map(item =>
+                        `<li>${item}</li>`
+                    ).join('')}
                 </ul>
             </div>
 
-            <div id="specializations" class="detail-section">
+            <div class="detail-section">
                 <h3>🧠 Especialidades</h3>
+
                 <ul>
-                    ${psychologist.specializations.map(spec => `<li>${spec}</li>`).join('')}
+                    ${psychologist.specializations.map(item =>
+                        `<li>${item}</li>`
+                    ).join('')}
                 </ul>
             </div>
 
-            <div id="experience" class="detail-section">
-                <h3>💼 Experiência Profissional</h3>
+            <div class="detail-section">
+                <h3>💼 Experiência</h3>
+
                 <ul>
-                    ${psychologist.experience.map(exp => `<li>${exp}</li>`).join('')}
+                    ${psychologist.experience.map(item =>
+                        `<li>${item}</li>`
+                    ).join('')}
                 </ul>
             </div>
 
-            <div id="approaches" class="detail-section">
+            <div class="detail-section">
                 <h3>🔍 Abordagens Terapêuticas</h3>
+
                 <ul>
-                    ${psychologist.approaches.map(app => `<li>${app}</li>`).join('')}
+                    ${psychologist.approaches.map(item =>
+                        `<li>${item}</li>`
+                    ).join('')}
                 </ul>
             </div>
+
         </div>
     `;
 
     document.getElementById('psychologist-details').innerHTML = detailsHTML;
     document.getElementById('psychologist-modal').style.display = 'block';
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    document.body.style.overflow = 'hidden';
 }
 
 // Close psychologist details modal
