@@ -1232,3 +1232,218 @@ input[type="submit"]:hover {
     text-align: center;
     line-height: 1.8;
 }
+
+/* =========================================================
+   RESPONSIVIDADE FINAL
+========================================================= */
+
+@media screen and (max-width: 768px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    body {
+        width: 100%;
+    }
+
+    /* HEADER */
+    header {
+        padding: 0;
+        min-height: auto;
+        background-size: cover;
+        background-position: center;
+    }
+
+    header h1 {
+        font-size: 3rem !important;
+        line-height: 1.5;
+        padding: 40px 20px 10px;
+        margin: 0;
+    }
+
+    header p {
+        font-size: 1.1rem !important;
+        line-height: 1.8 !important;
+        padding: 0 20px 40px;
+        margin: 0;
+    }
+
+    /* NAV */
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 14px;
+        padding: 18px 14px;
+    }
+
+    nav a {
+        margin: 0 !important;
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    /* REMOVE BARRAS */
+    nav::before,
+    nav::after {
+        display: none;
+    }
+
+    /* SECTIONS */
+    section {
+        width: 100%;
+        max-width: 100%;
+        padding: 55px 22px;
+        box-sizing: border-box;
+    }
+
+    /* TÍTULOS */
+    h2 {
+        font-size: 2.4rem !important;
+        line-height: 1.5;
+        margin-bottom: 35px;
+    }
+
+    h3 {
+        font-size: 1.5rem !important;
+    }
+
+    /* TEXTOS */
+    p {
+        font-size: 17px !important;
+        line-height: 2 !important;
+    }
+
+    /* GRIDS */
+    .equipe-grid,
+    .servicos-grid,
+    .passos-grid,
+    .horarios-grid,
+    .admin-summary {
+        display: grid;
+        grid-template-columns: 1fr !important;
+        gap: 24px;
+    }
+
+    /* CARDS */
+    .equipe-item,
+    .servico-item,
+    .passo-item,
+    .horario-item,
+    .admin-card {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* IMAGENS */
+    .perfil-img {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+    }
+
+    /* BOTÕES */
+    button,
+    input[type="submit"],
+    .saiba-mais-btn,
+    a[href*="wa.me"],
+    #contato a[href*="google.com/maps"] {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    /* FORMS */
+    form,
+    #form-steps,
+    #admin-login-form {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    /* CALENDÁRIO */
+    #calendar-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #time-buttons {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .time-button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* MODAL */
+    .modal {
+        padding: 12px;
+    }
+
+    .modal-content {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 16px;
+    }
+
+    .psychologist-detail {
+        padding: 26px 18px;
+    }
+
+    .psychologist-detail img {
+        width: 130px;
+        height: 130px;
+    }
+
+    .psychologist-detail h2 {
+        font-size: 2rem !important;
+    }
+
+    .psychologist-detail .title {
+        font-size: 18px !important;
+    }
+
+    .detail-section {
+        padding: 18px;
+    }
+
+    .detail-section h3 {
+        font-size: 1.2rem !important;
+    }
+
+    .detail-section li {
+        font-size: 15px;
+    }
+
+    /* SOCIAL */
+    .social-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* CVV */
+    .cvv-emergencia .cvv-number {
+        font-size: 2rem;
+    }
+
+    /* FOOTER */
+    footer {
+        padding: 30px 20px;
+        line-height: 1.8;
+    }
+}

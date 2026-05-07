@@ -125,3 +125,18 @@ Este projeto está sob a licença MIT. Sinta-se livre para usar e modificar.
 ## 👨‍💻 Autor
 
 Desenvolvido para fins de estudo e prototipagem.
+
+```
+Site-de-atendimento-psic-logo
+├─ Frontend
+│  ├─ admin.html
+│  ├─ agendar.html
+│  ├─ css
+│  │  └─ style.css
+│  ├─ index.html
+│  └─ js
+│     ├─ admin.js
+│     └─ script.js
+└─ README.md
+
+```
