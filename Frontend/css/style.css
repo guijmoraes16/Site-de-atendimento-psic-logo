@@ -82,23 +82,40 @@ a[href*="wa.me"]:hover {
 
 .equipe-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 25px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    align-items: stretch;
 }
 
 .equipe-item {
-    background-color: #ffffff;
-    border: 1px solid #ecf0f1;
-    border-radius: 10px;
-    padding: 25px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #fff;
+    border: 1px solid #e4e7eb;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+    transition: 0.3s ease;
 }
 
+@media (max-width: 1200px) {
+    .equipe-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .equipe-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
 .equipe-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transform: translateY(-6px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.10);
 }
 
 .perfil-link {
@@ -123,15 +140,12 @@ a[href*="wa.me"]:hover {
 .perfil-img {
     width: 100%;
     height: 340px;
-    min-height: 340px;
-    border-radius: 12px;
-    display: block;
-    margin: 0 auto 18px;
-    border: 2px solid #3498db;
     object-fit: cover;
-    object-position: center center;
-    transition: border-color 0.3s ease, transform 0.3s ease;
+    border-radius: 14px;
+    border: 2px solid #3498db;
+    margin-bottom: 22px;
 }
+
 
 .perfil-img:hover {
     border-color: #2980b9;
@@ -148,6 +162,50 @@ a[href*="wa.me"]:hover {
 .equipe-item p {
     margin: 0 0 12px;
     color: #555;
+}
+
+.equipe-item h3 {
+    font-size: 20px;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    min-height: 60px;
+    color: #2c3e50;
+}
+
+.equipe-item p:nth-of-type(1) {
+    min-height: 80px;
+    font-size: 17px;
+    color: #555;
+    margin-bottom: 18px;
+}
+
+/* BIO */
+.equipe-item p:nth-of-type(2) {
+    flex-grow: 1;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #666;
+    margin-bottom: 28px;
+}
+
+/* BOTÃO */
+.saiba-mais-btn {
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 10px;
+    background: #4a90e2;
+    color: white;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-top: auto;
+}
+
+.saiba-mais-btn:hover {
+    background: #357abd;
+    transform: scale(1.02);
 }
 
 .badges {
@@ -907,4 +965,270 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #357abd;
+}
+
+/* Seções centralizadas */
+#inicio,
+#sobre {
+    text-align: center;
+}
+
+/* Limitar largura dos textos */
+#inicio p,
+#sobre p {
+    max-width: 900px;
+    margin: 0 auto 25px auto;
+    line-height: 1.9;
+    font-size: 18px;
+}
+
+/* Títulos */
+#inicio h2,
+#sobre h2 {
+    margin-bottom: 40px;
+}
+
+/* Subtítulo */
+#inicio h3 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+/* Botão whatsapp */
+#inicio a[href*="wa.me"] {
+    margin-top: 10px;
+}
+
+/* Centralizar texto da seção Como Funciona */
+#como-funciona p {
+    max-width: 900px;
+    margin: 0 auto 30px auto;
+    text-align: center;
+    line-height: 1.9;
+}
+
+/* ===== CONTATO ===== */
+
+#contato {
+    text-align: center;
+}
+
+/* Informações */
+#contato p {
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+    line-height: 1.8;
+}
+
+/* Formulário */
+#contato form {
+    max-width: 500px;
+    margin: 40px auto;
+}
+
+/* Inputs */
+#contato input,
+#contato textarea {
+    width: 100%;
+}
+
+/* Botão enviar */
+#contato input[type="submit"] {
+    margin-top: 25px;
+    width: 100%;
+    height: 52px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Botão Google Maps */
+#contato a[href*="google.com/maps"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    margin-top: 20px;
+    padding: 14px 24px;
+
+    background: #4285F4;
+    color: white !important;
+
+    border-radius: 10px;
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: 0.3s ease;
+}
+
+/* Hover */
+#contato a[href*="google.com/maps"]:hover {
+    background: #2b6edc;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(66,133,244,0.25);
+}
+
+/* Redes sociais centralizadas */
+.social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin-top: 25px;
+}
+
+/* Botões sociais */
+.social-link {
+    width: 54px;
+    height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f1f5f9;
+    color: #4a90e2;
+
+    transition: 0.3s ease;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+/* Ícones */
+.social-icon {
+    width: 26px;
+    height: 26px;
+}
+
+/* Hover */
+.social-link:hover {
+    transform: translateY(-4px) scale(1.05);
+    background: #4a90e2;
+    color: white;
+    box-shadow: 0 10px 24px rgba(74,144,226,0.25);
+}
+
+/* Centralizar texto da seção serviços */
+#servicos > p {
+    max-width: 950px;
+    margin: 0 auto 40px auto;
+    text-align: center;
+    line-height: 1.8;
+}
+
+/* Distanciar botão dos cards */
+#servicos a[href="agendar.html"] {
+    display: inline-block;
+    margin-top: 40px !important;
+    padding: 14px 28px !important;
+}
+
+/* Centralizar parágrafo do agendamento */
+#agendamento-intro > p {
+    max-width: 1000px;
+    margin: 0 auto 45px auto;
+    text-align: center;
+    line-height: 1.9;
+    font-size: 18px;
+}
+
+/* Centralizar título da seção de serviços */
+#agendamento-intro h3 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* ===== FORMULÁRIO AGENDAMENTO ===== */
+
+#form-agendamento {
+    text-align: center;
+}
+
+/* Parágrafo principal */
+#form-agendamento > p {
+    max-width: 950px;
+    margin: 0 auto 40px auto;
+    line-height: 1.8;
+}
+
+/* Calendário */
+#availability-calendar {
+    max-width: 1100px;
+    margin: 0 auto 50px auto;
+    text-align: center;
+}
+
+/* Passos */
+#form-steps {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Labels */
+#form-steps label {
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Inputs */
+#form-steps input,
+#form-steps select,
+#form-steps textarea {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+/* Botões */
+#form-steps button {
+    min-width: 140px;
+    height: 48px;
+    margin: 10px 5px;
+}
+
+/* Títulos dos passos */
+.step h3 {
+    margin-bottom: 35px;
+}
+
+/* Confirmação */
+#selected-appointment {
+    text-align: center;
+}
+
+/* ===== MINHA AGENDA ===== */
+
+#listagem {
+    text-align: center;
+}
+
+/* Parágrafo */
+#listagem > p {
+    max-width: 950px;
+    margin: 0 auto 35px auto;
+    line-height: 1.8;
+}
+
+/* Lista */
+#appointments-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Cards */
+.appointment-item {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* Centralizar parágrafo do login admin */
+#admin-login > p {
+    max-width: 800px;
+    margin: 0 auto 35px auto;
+    text-align: center;
+    line-height: 1.8;
 }
