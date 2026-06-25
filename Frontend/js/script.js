@@ -105,14 +105,38 @@ function submitForm() {
         return;
     }
 
-    appointments.push(formData);
-    localStorage.setItem('appointments', JSON.stringify(appointments));
-    localStorage.setItem('last-user-email', formData.email);
+    // Send to backend
+    fetch('http://127.0.0.1:8000/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+    })
+    .then(res => res.json())
+    .then(resp => {
+        if (resp.success) {
+            // store locally as fallback
+            appointments.push(formData);
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+            localStorage.setItem('last-user-email', formData.email);
 
-    showConfirmation(formData);
-    loadAppointments();
-    resetForm();
-    showFeedback('Agendamento realizado com sucesso!', 'success');
+            showConfirmation(formData);
+            loadAppointments();
+            resetForm();
+            showFeedback('Agendamento enviado ao servidor com sucesso!', 'success');
+        } else {
+            showFeedback('Falha ao enviar agendamento: ' + (resp.error || 'erro desconhecido'), 'error');
+        }
+    })
+    .catch(err => {
+        // On network error, save locally
+        appointments.push(formData);
+        localStorage.setItem('appointments', JSON.stringify(appointments));
+        localStorage.setItem('last-user-email', formData.email);
+        showConfirmation(formData);
+        loadAppointments();
+        resetForm();
+        showFeedback('Sem conexão com servidor — agendamento salvo localmente.', 'warning');
+    });
 }
 
 // Check if time is available

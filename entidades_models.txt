@@ -1,118 +1,102 @@
-﻿-- Modelo de dados do projeto em formato SQL (semelhante ao DBeaver)
+﻿Entidades / Modelos do Projeto
 
--- Tabela de pacientes
-CREATE TABLE patients (
-    paciente_id INT PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    telefone VARCHAR(50),
-    data_nascimento DATE,
-    sexo VARCHAR(20),
-    servico_preferido VARCHAR(100),
-    ultima_consulta DATE,
-    health_plan_id INT NULL
-);
+1. Appointment (Agendamento)
+- id: number
+- nome: string
+- email: string
+- telefone: string
+- servico: string
+- data: string
+- hora: string
+- mensagem: string (opcional)
+- status: string ('pending' | 'confirmed')
 
--- Tabela de serviços
-CREATE TABLE services (
-    service_key VARCHAR(50) PRIMARY KEY,
-    label VARCHAR(255) NOT NULL,
-    price VARCHAR(50) NOT NULL,
-    active BOOLEAN NOT NULL
-);
+2. Service (Serviço)
+- key: string
+- label: string
+- price: string
+- active: boolean
 
--- Tabela de agendamentos
-CREATE TABLE appointments (
-    appointment_id BIGINT PRIMARY KEY,
-    paciente_id INT NOT NULL,
-    servico VARCHAR(100) NOT NULL,
-    data DATE NOT NULL,
-    hora TIME NOT NULL,
-    mensagem TEXT,
-    status VARCHAR(20) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    telefone VARCHAR(50) NOT NULL,
-    FOREIGN KEY (paciente_id) REFERENCES patients(paciente_id)
-);
+3. StaffMember (Equipe/Admin)
+- email: string
+- password: string
+- name: string
+- role: string ('Psicóloga' | 'Psicólogo' | 'Admin')
 
--- Tabela de equipe / administradores
-CREATE TABLE staff_members (
-    staff_id INT PRIMARY KEY,
-    email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    nome VARCHAR(255) NOT NULL,
-    role VARCHAR(50) NOT NULL
-);
+4. AvailableTime (Horário disponível)
+- date: string
+- times: string[]
 
--- Tabela de horários disponíveis
-CREATE TABLE available_times (
-    available_time_id INT PRIMARY KEY,
-    date DATE NOT NULL,
-    times VARCHAR(255) NOT NULL -- armazenado como lista separada por vírgula
-);
+5. PsychologistProfile (Perfil de psicólogo/a)
+- name: string
+- title: string
+- crp: string
+- image: string
+- bio: string
+- education: string[]
+- specializations: string[]
+- experience: string[]
+- approaches: string[]
 
--- Tabela de perfis de psicólogos
-CREATE TABLE psychologists (
-    psychologist_id INT PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    title VARCHAR(255),
-    crp VARCHAR(50),
-    image VARCHAR(500),
-    bio TEXT,
-    education TEXT,
-    specializations TEXT,
-    experience TEXT,
-    approaches TEXT
-);
+6. CurrentUser (Usuário admin autenticado em sessão)
+- email: string
+- password: string
+- name: string
+- role: string
 
--- Tabela de planos de saúde
-CREATE TABLE health_plans (
-    health_plan_id INT PRIMARY KEY,
-    provider VARCHAR(255) NOT NULL,
-    plan_type VARCHAR(100) NOT NULL,
-    coverage_level VARCHAR(100) NOT NULL,
-    valid_until DATE NOT NULL,
-    policy_number VARCHAR(100) NOT NULL,
-    holder_name VARCHAR(255) NOT NULL
-);
+7. Payment (Pagamento)
+- paymentId: number
+- appointmentId: number
+- patientId: number
+- amount: string
+- method: string ('credit_card' | 'pix' | 'boleto' | 'cash')
+- status: string ('pending' | 'paid' | 'failed')
+- date: string
+- insuranceUsed: boolean
+- healthPlanId: number (opcional)
 
--- Tabela de pagamentos
-CREATE TABLE payments (
-    payment_id INT PRIMARY KEY,
-    appointment_id BIGINT NOT NULL,
-    patient_id INT NOT NULL,
-    amount VARCHAR(50) NOT NULL,
-    method VARCHAR(50) NOT NULL,
-    status VARCHAR(20) NOT NULL,
-    date DATE NOT NULL,
-    insurance_used BOOLEAN NOT NULL,
-    health_plan_id INT NULL,
-    FOREIGN KEY (appointment_id) REFERENCES appointments(appointment_id),
-    FOREIGN KEY (patient_id) REFERENCES patients(paciente_id),
-    FOREIGN KEY (health_plan_id) REFERENCES health_plans(health_plan_id)
-);
+Exemplos de Payment:
+1. paymentId: 301, appointmentId: 501, patientId: 101, amount: 'R$ 120', method: 'pix', status: 'paid', date: '2026-06-10', insuranceUsed: false, healthPlanId: null
+2. paymentId: 302, appointmentId: 502, patientId: 102, amount: 'R$ 80', method: 'credit_card', status: 'paid', date: '2026-06-18', insuranceUsed: true, healthPlanId: 202
+3. paymentId: 303, appointmentId: 503, patientId: 104, amount: 'R$ 180', method: 'boleto', status: 'pending', date: '2026-06-15', insuranceUsed: true, healthPlanId: 203
 
--- Dados de exemplo para pacientes
-INSERT INTO patients (paciente_id, nome, email, telefone, data_nascimento, sexo, servico_preferido, ultima_consulta, health_plan_id) VALUES
-(101, 'Maria de Souza', 'maria.souza@gmail.com', '(11) 91234-5678', '1988-05-14', 'Feminino', 'Terapia Individual', '2026-06-10', 201),
-(102, 'Pedro Oliveira', 'pedro.oliveira@gmail.com', '(21) 99876-5432', '1992-09-21', 'Masculino', 'Orientação Psicológica', '2026-06-18', 202),
-(103, 'Beatriz Lima', 'beatriz.lima@hotmail.com', '(31) 98765-4321', '2000-02-02', 'Feminino', 'Atendimento Online', '2026-06-20', NULL),
-(104, 'Rafael Costa', 'rafael.costa@yahoo.com', '(41) 93456-7890', '1985-12-30', 'Masculino', 'Terapia de Casal', '2026-06-15', 203),
-(105, 'Juliana Ferreira', 'juliana.ferreira@outlook.com', '(51) 95678-1234', '1995-07-11', 'Feminino', 'Terapia Individual', '2026-06-22', NULL);
+8. HealthPlan (Plano de saúde)
+- healthPlanId: number
+- provider: string
+- planType: string
+- coverageLevel: string
+- validUntil: string
+- policyNumber: string
+- holderName: string
 
--- Dados de exemplo para planos de saúde
-INSERT INTO health_plans (health_plan_id, provider, plan_type, coverage_level, valid_until, policy_number, holder_name) VALUES
-(201, 'Bradesco Saúde', 'Individual', 'Cobertura Ampla', '2027-03-31', 'BRD123456789', 'Maria de Souza'),
-(202, 'Unimed', 'Familiar', 'Consultas e Terapia', '2027-06-30', 'UND987654321', 'Pedro Oliveira'),
-(203, 'SulAmérica Saúde', 'Individual', 'Terapia e Psicologia', '2027-12-31', 'SUL456789123', 'Rafael Costa');
+Exemplos de HealthPlan:
+1. healthPlanId: 201, provider: 'Bradesco Saúde', planType: 'Individual', coverageLevel: 'Cobertura Ampla', validUntil: '2027-03-31', policyNumber: 'BRD123456789', holderName: 'Maria de Souza'
+2. healthPlanId: 202, provider: 'Unimed', planType: 'Familiar', coverageLevel: 'Consultas e Terapia', validUntil: '2027-06-30', policyNumber: 'UND987654321', holderName: 'Pedro Oliveira'
+3. healthPlanId: 203, provider: 'SulAmérica Saúde', planType: 'Individual', coverageLevel: 'Terapia e Psicologia', validUntil: '2027-12-31', policyNumber: 'SUL456789123', holderName: 'Rafael Costa'
 
--- Dados de exemplo para pagamentos
-INSERT INTO payments (payment_id, appointment_id, patient_id, amount, method, status, date, insurance_used, health_plan_id) VALUES
-(301, 501, 101, 'R$ 120', 'pix', 'paid', '2026-06-10', FALSE, NULL),
-(302, 502, 102, 'R$ 80', 'credit_card', 'paid', '2026-06-18', TRUE, 202),
-(303, 503, 104, 'R$ 180', 'boleto', 'pending', '2026-06-15', TRUE, 203);
+9. Lista de pacientes cadastrados
+- pacienteId: number
+- nome: string
+- email: string
+- telefone: string
+- dataNascimento: string
+- sexo: string
+- servicoPreferido: string
+- ultimaConsulta: string
+- healthPlanId: number (opcional)
 
--- Observações:
--- O arquivo está estruturado como SQL para ser usado em ferramental tipo DBeaver.
--- No frontend original, os dados são armazenados em localStorage / sessionStorage.
--- Aqui a modelagem é apresentada em formato de tabelas relacionais.
+Pacientes fictícios:
+1. pacienteId: 101, nome: 'Maria de Souza', email: 'maria.souza@gmail.com', telefone: '(11) 91234-5678', dataNascimento: '1988-05-14', sexo: 'Feminino', servicoPreferido: 'Terapia Individual', ultimaConsulta: '2026-06-10', healthPlanId: 201
+2. pacienteId: 102, nome: 'Pedro Oliveira', email: 'pedro.oliveira@gmail.com', telefone: '(21) 99876-5432', dataNascimento: '1992-09-21', sexo: 'Masculino', servicoPreferido: 'Orientação Psicológica', ultimaConsulta: '2026-06-18', healthPlanId: 202
+3. pacienteId: 103, nome: 'Beatriz Lima', email: 'beatriz.lima@hotmail.com', telefone: '(31) 98765-4321', dataNascimento: '2000-02-02', sexo: 'Feminino', servicoPreferido: 'Atendimento Online', ultimaConsulta: '2026-06-20', healthPlanId: null
+4. pacienteId: 104, nome: 'Rafael Costa', email: 'rafael.costa@yahoo.com', telefone: '(41) 93456-7890', dataNascimento: '1985-12-30', sexo: 'Masculino', servicoPreferido: 'Terapia de Casal', ultimaConsulta: '2026-06-15', healthPlanId: 203
+5. pacienteId: 105, nome: 'Juliana Ferreira', email: 'juliana.ferreira@outlook.com', telefone: '(51) 95678-1234', dataNascimento: '1995-07-11', sexo: 'Feminino', servicoPreferido: 'Terapia Individual', ultimaConsulta: '2026-06-22', healthPlanId: null
+
+
+
+
+
+Observações:
+- Os dados são armazenados localmente em localStorage / sessionStorage.
+- O modelo de agendamento é usado tanto na página de agendamento quanto no painel administrativo.
+- A lista de serviços e horários disponíveis também é gerenciada pelo frontend.

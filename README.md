@@ -140,3 +140,35 @@ Site-de-atendimento-psic-logo
 └─ README.md
 
 ```
+
+## Backend & Banco de Dados (SQLite)
+
+Este projeto inclui um backend mínimo em Flask que recebe agendamentos e os grava no banco SQLite usado pelo DBeaver.
+
+Passos para rodar localmente (Windows, usando o venv `ambientepsico` criado no projeto):
+
+1. Ative o venv (PowerShell):
+```
+.\ambientepsico\Scripts\Activate.ps1
+```
+
+2. Instale dependências:
+```
+pip install -r requirements.txt
+```
+
+3. Gerar o banco e popular dados de exemplo:
+```
+python scripts\seed_data.py
+```
+
+4. Iniciar o backend Flask:
+```
+python backend\app.py
+```
+
+O backend ficará disponível em `http://127.0.0.1:8000` e expõe o endpoint `POST /appointments`.
+
+Frontend: o formulário de agendamento em `Frontend/js/script.js` já envia o JSON para `http://127.0.0.1:8000/appointments`.
+
+Conectar no DBeaver: crie uma conexão `SQLite` apontando para o arquivo `dbeaver.db` no diretório do projeto.

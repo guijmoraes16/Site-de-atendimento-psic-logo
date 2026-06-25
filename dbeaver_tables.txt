@@ -1,0 +1,94 @@
+-- SQL schema para uso no DBeaver (compatível com SQLite/Postgres)
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE health_plans (
+  id INTEGER PRIMARY KEY,
+  provider TEXT NOT NULL,
+  plan_type TEXT,
+  coverage_level TEXT,
+  valid_until TEXT,
+  policy_number TEXT,
+  holder_name TEXT
+);
+
+CREATE TABLE patients (
+  id INTEGER PRIMARY KEY,
+  nome TEXT NOT NULL,
+  email TEXT,
+  telefone TEXT,
+  data_nascimento TEXT,
+  sexo TEXT,
+  servico_preferido TEXT,
+  ultima_consulta TEXT,
+  health_plan_id INTEGER,
+  FOREIGN KEY (health_plan_id) REFERENCES health_plans(id) ON DELETE SET NULL
+);
+
+CREATE TABLE services (
+  key TEXT PRIMARY KEY,
+  label TEXT NOT NULL,
+  price TEXT,
+  active INTEGER DEFAULT 1
+);
+
+CREATE TABLE staff_members (
+  id INTEGER PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL,
+  name TEXT,
+  role TEXT
+);
+
+CREATE TABLE psychologist_profiles (
+  id INTEGER PRIMARY KEY,
+  staff_id INTEGER,
+  name TEXT,
+  title TEXT,
+  crp TEXT,
+  image TEXT,
+  bio TEXT,
+  education TEXT,         -- armazenar arrays/JSON como TEXT
+  specializations TEXT,
+  experience TEXT,
+  approaches TEXT,
+  FOREIGN KEY (staff_id) REFERENCES staff_members(id) ON DELETE SET NULL
+);
+
+CREATE TABLE available_times (
+  id INTEGER PRIMARY KEY,
+  date TEXT NOT NULL,
+  times TEXT               -- lista de horários como JSON string
+);
+
+CREATE TABLE appointments (
+  id INTEGER PRIMARY KEY,
+  nome TEXT NOT NULL,
+  email TEXT,
+  telefone TEXT,
+  servico TEXT,
+  data TEXT,
+  hora TEXT,
+  mensagem TEXT,
+  status TEXT DEFAULT 'pending',
+  patient_id INTEGER,
+  FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE SET NULL
+);
+
+CREATE TABLE payments (
+  id INTEGER PRIMARY KEY,
+  appointment_id INTEGER,
+  patient_id INTEGER,
+  amount TEXT,
+  method TEXT,
+  status TEXT DEFAULT 'pending',
+  date TEXT,
+  insurance_used INTEGER DEFAULT 0,
+  health_plan_id INTEGER,
+  FOREIGN KEY (appointment_id) REFERENCES appointments(id) ON DELETE SET NULL,
+  FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE SET NULL,
+  FOREIGN KEY (health_plan_id) REFERENCES health_plans(id) ON DELETE SET NULL
+);
+
+-- Observações:
+-- - Campos que armazenam arrays/objetos (education, times, etc.) estão em TEXT
+--   e podem conter JSON. Ajuste os tipos (por ex. JSON) caso use Postgres.
