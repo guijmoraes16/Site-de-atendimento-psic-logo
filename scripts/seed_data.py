@@ -1,4 +1,5 @@
 import sys
+from datetime import date, time
 from pathlib import Path
 
 # Ensure project root is on sys.path so imports work when script is executed from /scripts
@@ -13,26 +14,38 @@ import models
 def seed():
     session = get_session()
     try:
-        # Add services
         services = [
-            models.Service(key='individual', label='Terapia Individual', price='R$ 120', active=True),
-            models.Service(key='casal', label='Terapia de Casal', price='R$ 180', active=True),
-            models.Service(key='online', label='Atendimento Online', price='R$ 100', active=True),
-            models.Service(key='orientacao', label='Orientação Psicológica', price='R$ 80', active=True),
+            models.Servico(nome='Terapia Individual', descricao='Sessões personalizadas para ansiedade, depressão e estresse.', valor=120.00, duracao=50, modalidade='Presencial/Online', ativo=True),
+            models.Servico(nome='Terapia de Casal', descricao='Atendimento para casais que buscam melhorar a comunicação.', valor=180.00, duracao=60, modalidade='Presencial/Online', ativo=True),
+            models.Servico(nome='Atendimento Online', descricao='Consultas via videochamada com total comodidade.', valor=100.00, duracao=50, modalidade='Online', ativo=True),
+            models.Servico(nome='Orientação Psicológica', descricao='Apoio breve para crises, dúvidas ou decisões importantes.', valor=80.00, duracao=45, modalidade='Presencial/Online', ativo=True),
         ]
-        for s in services:
-            if not session.get(models.Service, s.key):
-                session.add(s)
+        for service in services:
+            if not session.query(models.Servico).filter_by(nome=service.nome).first():
+                session.add(service)
 
-        # Add a health plan
-        if not session.query(models.HealthPlan).filter_by(provider='Unimed').first():
-            hp = models.HealthPlan(provider='Unimed', plan_type='Familiar', coverage_level='Consultas e Terapia', valid_until='2027-06-30', policy_number='UND987654321', holder_name='Pedro Oliveira')
-            session.add(hp)
+        psicologos = [
+            models.Psicologo(nome='Dra. Ana Silva', titulo='Psicóloga Clínica', bio='Atende pessoas com ansiedade, depressão e transtornos de humor.', foto='ana.jpg', ativo=True),
+            models.Psicologo(nome='Dr. Carlos Souza', titulo='Psicólogo Especialista em Terapia de Casal', bio='Ajuda casais a construir comunicação mais saudável.', foto='carlos.jpg', ativo=True),
+            models.Psicologo(nome='Dra. Juliana Costa', titulo='Psicóloga de Atendimento Online', bio='Atendimento remoto com foco em autoconhecimento e equilíbrio.', foto='juliana.jpg', ativo=True),
+            models.Psicologo(nome='Dra. Marina Oliveira', titulo='Psicóloga com foco em Orientação Psicológica', bio='Oferece suporte para tomada de decisões e crises emocionais.', foto='marina.jpg', ativo=True),
+        ]
+        for psicologo in psicologos:
+            if not session.query(models.Psicologo).filter_by(nome=psicologo.nome).first():
+                session.add(psicologo)
 
-        # Add a sample patient
-        if not session.query(models.Patient).filter_by(email='maria.souza@gmail.com').first():
-            p = models.Patient(nome='Maria de Souza', email='maria.souza@gmail.com', telefone='(11) 91234-5678', data_nascimento='1988-05-14', sexo='Feminino', servico_preferido='Terapia Individual')
-            session.add(p)
+        if not session.query(models.Admin).filter_by(email='admin@clinicaequilibrio.com').first():
+            admin = models.Admin(nome='Administrador', email='admin@clinicaequilibrio.com', senha='admin123')
+            session.add(admin)
+
+        available_times = [
+            models.HorarioDisponivel(data=date(2026, 6, 26), hora=time(9, 0), disponivel=True),
+            models.HorarioDisponivel(data=date(2026, 6, 26), hora=time(10, 0), disponivel=True),
+            models.HorarioDisponivel(data=date(2026, 6, 27), hora=time(14, 0), disponivel=True),
+        ]
+        for slot in available_times:
+            if not session.query(models.HorarioDisponivel).filter_by(data=slot.data, hora=slot.hora).first():
+                session.add(slot)
 
         session.commit()
         print('Seed completed')
