@@ -5,8 +5,7 @@ from core.database import get_banco
 
 from repositories.usuario_repository import UsuarioRepository
 from services.usuario_service import UsuarioSelfService
-from schema.usuario_schema import UsuarioCreate
-from schema.login_schema import LoginRequest
+from schema.usuario import LoginRequest, CadastroRequest
 
 roteador = APIRouter(
     prefix="/usuarios",
