@@ -1,9 +1,18 @@
 from fastapi import FastAPI
+from rotas.saude import roteador as saude_roteador
 
 # Inicializa a aplicação FastAPI
 app = FastAPI()
 
+app.include_router(saude_roteador)
+
 # Define uma rota padrão (Root)
 @app.get("/")
-def read_root():
-    return {"mensagem": "API FUNFANDO"}
+def root():
+    return {
+        "application": "MiniAPI",
+        "version": "1.0.0",
+        "docs": "/docs",
+        "saude": "/saude",
+        "saude_banco": "/saude/db"
+    }
