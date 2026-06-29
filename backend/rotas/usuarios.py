@@ -15,7 +15,7 @@ roteador = APIRouter(
 
 # POST - Criar usuário
 @roteador.post("", status_code=201)
-def criar_usuario(usuario: UsuarioCreate, db: Session = Depends(get_banco)):
+def criar_usuario(usuario: CadastroRequest, db: Session = Depends(get_banco)):
     repository = UsuarioRepository(db)
     service = UsuarioSelfService(repository)
 
