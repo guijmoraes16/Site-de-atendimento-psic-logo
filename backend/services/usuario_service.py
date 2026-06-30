@@ -3,7 +3,7 @@ from typing import Self
 from fastapi import HTTPException, status
 from models.usuario import Usuario
 from repositories.usuario_repository import UsuarioRepository
-from core.segurancao import gerar_hash, verificar_senha
+from core.seguranca import gerar_hash, verificar_senha
 from core.jwt import criar_token
 from models.usuario import Usuario
 
