@@ -4,6 +4,7 @@
 ### Python ###
 # Arquivos compilados em bytecode / otimizados / DLL
 */__pycache__/
+__pycache__/
 *.py[cod]
 *$py.class
 
