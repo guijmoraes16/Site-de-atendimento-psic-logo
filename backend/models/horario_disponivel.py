@@ -33,3 +33,9 @@ class HorarioDisponivel(Base):
         "Psicologo",
         back_populates="horarios",
     )
+
+    agendamento = relationship(
+        "Agendamento",
+        back_populates="horario",
+        uselist=False,
+    )

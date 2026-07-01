@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel, EmailStr
 from sqlalchemy.orm import Session
 
 from core.jwt import criar_token
@@ -8,7 +7,7 @@ from core.database import get_banco
 from schema.usuario import LoginRequest, CadastroRequest
 from models.usuario import Usuario
 
-roteador = APIRouter(prefix="/auth", tags=["auth"])
+roteador = APIRouter(prefix="/auth", tags=["Auth"])
 
 
 @roteador.post("/login")
@@ -20,8 +19,10 @@ def login(dados: LoginRequest, db: Session = Depends(get_banco)):
     if not usuario or not verificar_senha(dados.senha, usuario.senha):
         raise HTTPException(status_code=401, detail="Email ou senha inválidos")
 
-    return {"access_token": criar_token({"sub": str(usuario.id)}), "token_type": "bearer"}
-
+    return {
+        "access_token": criar_token({"sub": str(usuario.id)}),
+        "token_type": "bearer",
+    }
 
 
 @roteador.post("/cadastro")
@@ -34,7 +35,7 @@ def registro(dados: CadastroRequest, db: Session = Depends(get_banco)):
         nome=dados.nome,
         email=dados.email,
         senha=gerar_hash(dados.senha),
-        telefone=dados.telefone
+        telefone=dados.telefone,
     )
     db.add(novo_usuario)
     db.commit()
@@ -44,5 +45,5 @@ def registro(dados: CadastroRequest, db: Session = Depends(get_banco)):
         "id": novo_usuario.id,
         "email": novo_usuario.email,
         "nome": novo_usuario.nome,
-        "telefone": novo_usuario.telefone
+        "telefone": novo_usuario.telefone,
     }

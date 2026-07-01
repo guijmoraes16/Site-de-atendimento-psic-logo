@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from rotas.auth import roteador as auth_roteador
 from rotas.saude import roteador as saude_roteador
 from rotas.usuarios import roteador as usuario_roteador
+from rotas.horarios import roteador as horarios_roteador
 from rotas.servicos import roteador as servicos_roteador
 from rotas.pacientes import roteador as pacientes_roteador
 from rotas.psicologos import roteador as psicologo_roteador
@@ -22,8 +23,7 @@ app.include_router(usuario_roteador)
 app.include_router(servicos_roteador)
 app.include_router(pacientes_roteador)
 app.include_router(psicologo_roteador)
-
-# app.include_router(appointments_roteador)
+app.include_router(horarios_roteador)
 
 # CORS
 app.add_middleware(

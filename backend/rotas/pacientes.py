@@ -1,14 +1,10 @@
 from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
-
-from core.database import get_banco
 
 from core.dependencies import get_paciente_service
 from services.paciente_service import PacienteService
 from schema.paciente import (
     PacienteCreate,
     PacienteUpdate,
-    PacienteResponse,
 )
 
 roteador = APIRouter(
@@ -45,19 +41,6 @@ def listar_pacientes(
 
 
 # ===========================
-# GET - Buscar por ID
-# ===========================
-@roteador.get("/{paciente_id}")
-def buscar_paciente(
-    paciente_id: int,
-    service: PacienteService = Depends(get_paciente_service),
-):
-    paciente = service.buscar(paciente_id)
-
-    return {"mensagem": "Paciente encontrado.", "paciente": paciente}
-
-
-# ===========================
 # GET - Buscar por Nome
 # ===========================
 @roteador.get("/buscar/{nome}")
@@ -78,6 +61,19 @@ def buscar_por_cpf(
 ):
 
     return service.buscar_por_cpf(cpf)
+
+
+# ===========================
+# GET - Buscar por ID
+# ===========================
+@roteador.get("/{paciente_id}")
+def buscar_paciente(
+    paciente_id: int,
+    service: PacienteService = Depends(get_paciente_service),
+):
+    paciente = service.buscar(paciente_id)
+
+    return {"mensagem": "Paciente encontrado.", "paciente": paciente}
 
 
 # ===========================
