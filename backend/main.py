@@ -5,6 +5,7 @@ from rotas.saude import roteador as saude_roteador
 from rotas.auth import roteador as auth_roteador
 from rotas.usuarios import roteador as usuario_roteador
 from rotas.pacientes import roteador as pacientes_roteador
+from rotas.psicologos import roteador as psicologo_roteador
 from core.config import settings
 
 # WEB REST API
@@ -18,6 +19,8 @@ app.include_router(saude_roteador)
 app.include_router(auth_roteador)
 app.include_router(usuario_roteador)
 app.include_router(pacientes_roteador)
+app.include_router(psicologo_roteador)
+
 # app.include_router(appointments_roteador)
 
 # CORS

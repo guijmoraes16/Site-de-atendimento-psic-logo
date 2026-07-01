@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from core.database import get_banco
 
-from repositories.paciente_repository import PacienteRepository
+from core.dependencies import get_paciente_service
 from services.paciente_service import PacienteService
 from schema.paciente import (
     PacienteCreate,
@@ -23,11 +23,8 @@ roteador = APIRouter(
 @roteador.post("", status_code=201)
 def criar_paciente(
     paciente: PacienteCreate,
-    db: Session = Depends(get_banco),
+    service: PacienteService = Depends(get_paciente_service),
 ):
-    repository = PacienteRepository(db)
-    service = PacienteService(repository)
-
     return service.criar(paciente)
 
 
@@ -36,10 +33,8 @@ def criar_paciente(
 # ===========================
 @roteador.get("")
 def listar_pacientes(
-    db: Session = Depends(get_banco),
+    service: PacienteService = Depends(get_paciente_service),
 ):
-    repository = PacienteRepository(db)
-    service = PacienteService(repository)
     lista = service.listar()
 
     return {
@@ -55,10 +50,8 @@ def listar_pacientes(
 @roteador.get("/{paciente_id}")
 def buscar_paciente(
     paciente_id: int,
-    db: Session = Depends(get_banco),
+    service: PacienteService = Depends(get_paciente_service),
 ):
-    repository = PacienteRepository(db)
-    service = PacienteService(repository)
     paciente = service.buscar(paciente_id)
 
     return {"mensagem": "Paciente encontrado.", "paciente": paciente}
@@ -70,10 +63,8 @@ def buscar_paciente(
 @roteador.get("/buscar/{nome}")
 def buscar_por_nome(
     nome: str,
-    db: Session = Depends(get_banco),
+    service: PacienteService = Depends(get_paciente_service),
 ):
-    service = PacienteService(PacienteRepository(db))
-
     return service.buscar_por_nome(nome)
 
 
@@ -83,9 +74,8 @@ def buscar_por_nome(
 @roteador.get("/buscar/cpf/{cpf}")
 def buscar_por_cpf(
     cpf: str,
-    db: Session = Depends(get_banco),
+    service: PacienteService = Depends(get_paciente_service),
 ):
-    service = PacienteService(PacienteRepository(db))
 
     return service.buscar_por_cpf(cpf)
 
@@ -97,10 +87,8 @@ def buscar_por_cpf(
 def atualizar_paciente(
     paciente_id: int,
     paciente: PacienteUpdate,
-    db: Session = Depends(get_banco),
+    service: PacienteService = Depends(get_paciente_service),
 ):
-    repository = PacienteRepository(db)
-    service = PacienteService(repository)
     service.atualizar(
         paciente_id,
         paciente,
@@ -116,10 +104,8 @@ def atualizar_paciente(
 @roteador.delete("/{paciente_id}", status_code=200)
 def excluir_paciente(
     paciente_id: int,
-    db: Session = Depends(get_banco),
+    service: PacienteService = Depends(get_paciente_service),
 ):
-    repository = PacienteRepository(db)
-    service = PacienteService(repository)
     service.excluir(paciente_id)
 
     return {"mensagem": "Paciente Removido com sucesso."}
