@@ -1,4 +1,4 @@
-from datetime import datetime
+from core.database import Base
 
 from sqlalchemy import (
     Column,
@@ -7,9 +7,7 @@ from sqlalchemy import (
     Time,
     Boolean,
 )
-from sqlalchemy.orm import declarative_base, relationship
 
-Base = declarative_base()
 
 class HorarioDisponivel(Base):
     __tablename__ = "horarios_disponiveis"

@@ -1,4 +1,4 @@
-from datetime import datetime
+from core.database import Base
 
 from sqlalchemy import (
     Column,
@@ -8,9 +8,8 @@ from sqlalchemy import (
     Boolean,
     Numeric,
 )
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import relationship
 
-Base = declarative_base()
 
 class Servico(Base):
     __tablename__ = "servicos"
