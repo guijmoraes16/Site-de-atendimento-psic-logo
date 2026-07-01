@@ -1,9 +1,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-DATABASE_URL = "postgresql://postgres:1234@localhost:5432/agendamentos"
+from core.config import settings
 
-motor = create_engine(DATABASE_URL, pool_pre_ping=True)
+motor = create_engine(
+    settings.DATABASE_URL,
+    pool_pre_ping=True,
+)
 
 SessaoLocal = sessionmaker(autocommit=False, autoflush=False, bind=motor)
 

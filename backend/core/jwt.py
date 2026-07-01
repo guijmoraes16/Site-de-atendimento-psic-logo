@@ -1,24 +1,19 @@
 from datetime import datetime, timedelta
-
 from jose import jwt
 
-CHAVE_SECRETA = "minha-chave-super-secreta"
-ALGORITMO = "HS256"
-MINUTOS_EXPIRACAO_TOKEN_ACESSO = 30
+from core.config import settings
 
 
-# Geração token
 def criar_token(dados: dict):
-    dados_token = dados.copy()
 
-    expira = datetime.utcnow() + timedelta(minutes=MINUTOS_EXPIRACAO_TOKEN_ACESSO)
+    payload = dados.copy()
 
-    dados_token.update({"exp": expira})
+    exp = datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+
+    payload.update({"exp": exp})
 
     return jwt.encode(
-        dados_token,
-        CHAVE_SECRETA,
-        algorithm=ALGORITMO,
+        payload,
+        settings.SECRET_KEY,
+        algorithm=settings.ALGORITHM,
     )
-
-# Verificação token
