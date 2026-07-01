@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from rotas.saude import roteador as saude_roteador
 from rotas.auth import roteador as auth_roteador
+from rotas.saude import roteador as saude_roteador
 from rotas.usuarios import roteador as usuario_roteador
+from rotas.servicos import roteador as servicos_roteador
 from rotas.pacientes import roteador as pacientes_roteador
 from rotas.psicologos import roteador as psicologo_roteador
 from core.config import settings
@@ -15,9 +16,10 @@ app = FastAPI(
 )
 
 # Rotas
-app.include_router(saude_roteador)
 app.include_router(auth_roteador)
+app.include_router(saude_roteador)
 app.include_router(usuario_roteador)
+app.include_router(servicos_roteador)
 app.include_router(pacientes_roteador)
 app.include_router(psicologo_roteador)
 
