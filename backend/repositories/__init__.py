@@ -1,0 +1,2 @@
+from .paciente_repository import PacienteRepository
+from .usuario_repository import UsuarioRepository

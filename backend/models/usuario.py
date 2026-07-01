@@ -1,16 +1,15 @@
+from core.database import Base
+
+
 from sqlalchemy import (
     Column,
     String,
     Integer,
 )
 
-from sqlalchemy.orm import declarative_base
-
-Base = declarative_base()
-
 
 class Usuario(Base):
-    __tablename__ = "usuario"
+    __tablename__ = "usuarios"
 
     id = Column(Integer, primary_key=True, index=True)
     nome = Column(String(255), nullable=False)

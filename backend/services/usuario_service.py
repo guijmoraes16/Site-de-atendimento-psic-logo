@@ -1,11 +1,8 @@
-from typing import Self
-
-from fastapi import HTTPException, status
+from fastapi import HTTPException
 from models.usuario import Usuario
 from repositories.usuario_repository import UsuarioRepository
 from core.seguranca import gerar_hash, verificar_senha
 from core.jwt import criar_token
-from models.usuario import Usuario
 
 
 class UsuarioSelfService:
@@ -19,11 +16,21 @@ class UsuarioSelfService:
 
         senha_hash = gerar_hash(dados.senha)
 
-        usuario = Usuario(nome=dados.nome, email=dados.email, senha=senha_hash)
+        usuario = Usuario(
+            nome=dados.nome,
+            email=dados.email,
+            senha=senha_hash,
+            telefone=dados.telefone,
+        )
         usuario = self.repository.create(usuario)
         return {
             "Mensagem": "Usuário criado com sucesso",
-            "objeto": {"id": usuario.id, "nome": usuario.nome, "email": usuario.email},
+            "objeto": {
+                "id": usuario.id,
+                "nome": usuario.nome,
+                "email": usuario.email,
+                "telefone": usuario.telefone,
+            },
         }
 
     def listar_usuarios(self):

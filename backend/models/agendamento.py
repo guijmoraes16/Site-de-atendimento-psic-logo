@@ -37,8 +37,11 @@ class Agendamento(Base):
         nullable=False,
     )
 
-    data = Column(Date, nullable=False)
-    hora = Column(Time, nullable=False)
+    horario_id = Column(
+        Integer,
+        ForeignKey("horarios_disponiveis.id"),
+        nullable=False,
+    )
     mensagem = Column(Text)
     status = Column(String(20), default="Pendente")
     criado_em = Column(DateTime, default=datetime.utcnow)
@@ -57,3 +60,5 @@ class Agendamento(Base):
         "Servico",
         back_populates="consultas",
     )
+
+    horario = relationship("HorarioDisponivel")

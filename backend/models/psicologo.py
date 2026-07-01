@@ -25,3 +25,9 @@ class Psicologo(Base):
         back_populates="psicologo",
         cascade="all, delete-orphan",
     )
+
+    horarios = relationship(
+        "HorarioDisponivel",
+        back_populates="psicologo",
+        cascade="all, delete-orphan",
+    )
