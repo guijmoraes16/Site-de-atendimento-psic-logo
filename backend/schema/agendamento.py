@@ -1,4 +1,6 @@
 from typing import Optional
+from datetime import date, time
+
 
 from pydantic import BaseModel
 
@@ -27,3 +29,13 @@ class AgendamentoResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class AgendamentoListResponse(BaseModel):
+    id: int
+    paciente: str
+    psicologo: str
+    servico: str
+    data: date
+    hora: time
+    status: str

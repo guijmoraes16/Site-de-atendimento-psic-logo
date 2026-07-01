@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from models.agendamento import Agendamento
 
@@ -25,16 +25,37 @@ class AgendamentoRepository:
 
     def get_all(self):
 
-        return self.db.query(Agendamento).order_by(Agendamento.id.desc()).all()
+        return (
+            self.db.query(Agendamento)
+            .options(
+                joinedload(Agendamento.paciente),
+                joinedload(Agendamento.psicologo),
+                joinedload(Agendamento.servico),
+                joinedload(Agendamento.horario),
+            )
+            .order_by(Agendamento.id.desc())
+            .all()
+        )
 
     # ======================
     # BUSCAR
     # ======================
 
-    def get_by_id(self, agendamento_id):
+    def get_by_id(
+        self,
+        agendamento_id,
+    ):
 
         return (
-            self.db.query(Agendamento).filter(Agendamento.id == agendamento_id).first()
+            self.db.query(Agendamento)
+            .options(
+                joinedload(Agendamento.paciente),
+                joinedload(Agendamento.psicologo),
+                joinedload(Agendamento.servico),
+                joinedload(Agendamento.horario),
+            )
+            .filter(Agendamento.id == agendamento_id)
+            .first()
         )
 
     # ======================
@@ -48,6 +69,12 @@ class AgendamentoRepository:
 
         return (
             self.db.query(Agendamento)
+            .options(
+                joinedload(Agendamento.paciente),
+                joinedload(Agendamento.psicologo),
+                joinedload(Agendamento.servico),
+                joinedload(Agendamento.horario),
+            )
             .filter(Agendamento.paciente_id == paciente_id)
             .all()
         )
@@ -63,6 +90,12 @@ class AgendamentoRepository:
 
         return (
             self.db.query(Agendamento)
+            .options(
+                joinedload(Agendamento.paciente),
+                joinedload(Agendamento.psicologo),
+                joinedload(Agendamento.servico),
+                joinedload(Agendamento.horario),
+            )
             .filter(Agendamento.psicologo_id == psicologo_id)
             .all()
         )

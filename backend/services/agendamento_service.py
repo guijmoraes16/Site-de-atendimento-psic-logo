@@ -100,13 +100,26 @@ class AgendamentoService:
         }
 
     def listar(self):
-
         lista = self.repository.get_all()
+        resposta = []
+
+        for agendamento in lista:
+            resposta.append(
+                {
+                    "id": agendamento.id,
+                    "paciente": agendamento.paciente.nome,
+                    "psicologo": agendamento.psicologo.nome,
+                    "servico": agendamento.servico.nome,
+                    "data": agendamento.horario.data,
+                    "hora": agendamento.horario.hora,
+                    "status": agendamento.status,
+                }
+            )
 
         return {
             "mensagem": "Agendamentos encontrados.",
-            "total": len(lista),
-            "agendamentos": lista,
+            "total": len(resposta),
+            "agendamentos": resposta,
         }
 
     def buscar(
