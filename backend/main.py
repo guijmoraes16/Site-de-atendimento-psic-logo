@@ -8,6 +8,7 @@ from rotas.horarios import roteador as horarios_roteador
 from rotas.servicos import roteador as servicos_roteador
 from rotas.pacientes import roteador as pacientes_roteador
 from rotas.psicologos import roteador as psicologo_roteador
+from rotas.agendamentos import roteador as agendamentos_roteador
 from core.config import settings
 
 # WEB REST API
@@ -21,9 +22,10 @@ app.include_router(auth_roteador)
 app.include_router(saude_roteador)
 app.include_router(usuario_roteador)
 app.include_router(servicos_roteador)
+app.include_router(horarios_roteador)
 app.include_router(pacientes_roteador)
 app.include_router(psicologo_roteador)
-app.include_router(horarios_roteador)
+app.include_router(agendamentos_roteador)
 
 # CORS
 app.add_middleware(

@@ -5,8 +5,6 @@ from sqlalchemy import (
     Column,
     String,
     Integer,
-    Date,
-    Time,
     Text,
     DateTime,
     ForeignKey,
@@ -28,7 +26,7 @@ class Agendamento(Base):
     psicologo_id = Column(
         Integer,
         ForeignKey("psicologos.id"),
-        nullable=True,
+        nullable=False,
     )
 
     servico_id = Column(
@@ -43,7 +41,9 @@ class Agendamento(Base):
         nullable=False,
     )
     mensagem = Column(Text)
-    status = Column(String(20), default="Pendente")
+
+    status = Column(String(20), default="Agendado")
+
     criado_em = Column(DateTime, default=datetime.utcnow)
 
     paciente = relationship(
@@ -61,4 +61,7 @@ class Agendamento(Base):
         back_populates="consultas",
     )
 
-    horario = relationship("HorarioDisponivel")
+    horario = relationship(
+        "HorarioDisponivel",
+        back_populates="agendamento",
+    )

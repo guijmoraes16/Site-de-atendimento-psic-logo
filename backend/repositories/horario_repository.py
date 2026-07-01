@@ -100,3 +100,11 @@ class HorarioRepository:
     def delete(self, horario):
         self.db.delete(horario)
         self.db.commit()
+
+    def marcar_indisponivel(self, horario):
+        horario.disponivel = False
+        self.db.commit()
+
+    def marcar_disponivel(self, horario):
+        horario.disponivel = True
+        self.db.commit()

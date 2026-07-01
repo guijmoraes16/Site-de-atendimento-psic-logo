@@ -8,12 +8,15 @@ from repositories.servico_repository import ServicoRepository
 from repositories.usuario_repository import UsuarioRepository
 from repositories.paciente_repository import PacienteRepository
 from repositories.psicologo_repository import PsicologoRepository
+from repositories.agendamento_repository import AgendamentoRepository
+
 
 from services.horario_service import HorarioService
 from services.servico_service import ServicoService
 from services.paciente_service import PacienteService
 from services.psicologo_service import PsicologoService
 from services.usuario_service import UsuarioSelfService
+from services.agendamento_service import AgendamentoService
 
 
 def get_servico_service(
@@ -49,3 +52,15 @@ def get_usuario_service(
     db: Session = Depends(get_banco),
 ):
     return UsuarioSelfService(UsuarioRepository(db))
+
+
+def get_agendamento_service(
+    db: Session = Depends(get_banco),
+):
+    return AgendamentoService(
+        AgendamentoRepository(db),
+        PacienteRepository(db),
+        PsicologoRepository(db),
+        ServicoRepository(db),
+        HorarioRepository(db),
+    )

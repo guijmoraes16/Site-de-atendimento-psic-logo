@@ -10,7 +10,10 @@ from models.usuario import Usuario
 roteador = APIRouter(prefix="/auth", tags=["Auth"])
 
 
-@roteador.post("/login")
+@roteador.post(
+    "/login",
+    # include_in_schema=False,
+)
 def login(dados: LoginRequest, db: Session = Depends(get_banco)):
     usuario = db.query(Usuario).filter(Usuario.email == dados.email).first()
     print(usuario.senha)
@@ -25,7 +28,10 @@ def login(dados: LoginRequest, db: Session = Depends(get_banco)):
     }
 
 
-@roteador.post("/cadastro")
+@roteador.post(
+    "/cadastro",
+    # include_in_schema=False
+)
 def registro(dados: CadastroRequest, db: Session = Depends(get_banco)):
     existente = db.query(Usuario).filter(Usuario.email == dados.email).first()
     if existente:
