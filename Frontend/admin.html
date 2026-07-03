@@ -9,15 +9,28 @@
 <body>
 
 <header>
-    <h1>Administração Clínica</h1>
-    <p>Gestão de agendamentos, horários e serviços.</p>
+    <div class="logo">
+        <h2>🧠 Clínica Psicologia</h2>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="agendar.html">Agendamento</a></li>
+            <li><a href="admin.html">Administração</a></li>
+        </ul>
+    </nav>
+    <button class="btn-menu" onclick="window.location.href='agendar.html'">Agendar Consulta</button>
 </header>
 
-<nav>
-    <a href="index.html">Início</a> |
-    <a href="agendar.html">Agendamento</a> |
-    <a href="admin.html">Administração</a>
-</nav>
+<section class="hero">
+    <div class="texto">
+        <h1>Portal Administrativo</h1>
+        <p>Gerencie pacientes, horários e serviços com segurança. Use as abas para navegar entre os cadastros e relatórios.</p>
+    </div>
+    <div class="imagem">
+        <img src="https://images.unsplash.com/photo-1555421689-bcff47a0ed58?w=900" alt="Administração clínica">
+    </div>
+</section>
 
 <main id="admin-page">
     <section id="admin-login">
@@ -35,7 +48,7 @@
         <div id="login-error" style="color: red; margin-top: 10px; display: none;"></div>
     </section>
 
-    <section id="admin-panel" style="display:none;">
+    <section id="admin-panel" class="admin-panel" style="display:none;">
         <h2>Bem-vindo ao Painel Administrativo</h2>
         <div class="admin-summary">
             <div class="admin-card">
@@ -43,60 +56,91 @@
                 <p id="total-count">0</p>
             </div>
             <div class="admin-card">
-                <h3>Pendentes</h3>
-                <p id="pending-count">0</p>
+                <h3>Total de Pacientes</h3>
+                <p id="patient-count">0</p>
             </div>
             <div class="admin-card">
-                <h3>Confirmados</h3>
-                <p id="confirmed-count">0</p>
+                <h3>Total de Psicólogos</h3>
+                <p id="psychologist-count">0</p>
             </div>
         </div>
 
-        <div class="admin-section">
-            <h3>Consultas Pendentes</h3>
-            <div id="pending-appointments"></div>
+        <div class="admin-tabs">
+            <button class="tab-button active" data-tab="patients" onclick="setAdminTab('patients')">Pacientes</button>
+            <button class="tab-button" data-tab="psychologists" onclick="setAdminTab('psychologists')">Psicólogos</button>
+            <button class="tab-button" data-tab="services" onclick="setAdminTab('services')">Serviços</button>
+            <button class="tab-button" data-tab="schedules" onclick="setAdminTab('schedules')">Horários</button>
+            <button class="tab-button" data-tab="appointments" onclick="setAdminTab('appointments')">Agendamentos</button>
         </div>
 
-        <div class="admin-section">
-            <h3>Agendamentos</h3>
+        <div class="admin-section admin-tab" id="tab-patients">
+            <h3>CRUD Pacientes</h3>
+            <div class="admin-controls admin-form">
+                <label for="patient-name">Nome:</label>
+                <input type="text" id="patient-name" placeholder="Nome do paciente">
+                <label for="patient-email">Email:</label>
+                <input type="email" id="patient-email" placeholder="Email do paciente">
+                <label for="patient-phone">Telefone:</label>
+                <input type="text" id="patient-phone" placeholder="Telefone do paciente">
+                <label for="patient-password">Senha:</label>
+                <input type="password" id="patient-password" placeholder="Senha de acesso">
+                <button onclick="createPatient()">Adicionar Paciente</button>
+            </div>
+            <div id="patient-admin-list"></div>
+        </div>
+
+        <div class="admin-section admin-tab" id="tab-psychologists" style="display:none;">
+            <h3>CRUD Psicólogos</h3>
+            <div class="admin-controls admin-form">
+                <label for="psychologist-name">Nome:</label>
+                <input type="text" id="psychologist-name" placeholder="Nome do psicólogo">
+                <label for="psychologist-title">Título:</label>
+                <input type="text" id="psychologist-title" placeholder="Título / Especialidade">
+                <label for="psychologist-bio">Bio:</label>
+                <textarea id="psychologist-bio" placeholder="Breve resumo"></textarea>
+                <label for="psychologist-photo">URL da foto:</label>
+                <input type="text" id="psychologist-photo" placeholder="Link da imagem">
+                <button onclick="createPsychologist()">Adicionar Psicólogo</button>
+            </div>
+            <div id="psychologist-admin-list"></div>
+        </div>
+
+        <div class="admin-section admin-tab" id="tab-services" style="display:none;">
+            <h3>CRUD Serviços</h3>
+            <div class="admin-controls admin-form">
+                <label for="service-name">Nome:</label>
+                <input type="text" id="service-name" placeholder="Nome do serviço">
+                <label for="service-description">Descrição:</label>
+                <textarea id="service-description" placeholder="Descrição do serviço"></textarea>
+                <label for="service-price">Valor:</label>
+                <input type="text" id="service-price" placeholder="R$ 0,00">
+                <label for="service-modality">Modalidade:</label>
+                <input type="text" id="service-modality" placeholder="Presencial / Online">
+                <button onclick="createService()">Adicionar Serviço</button>
+            </div>
+            <div id="service-admin-list"></div>
+        </div>
+
+        <div class="admin-section admin-tab" id="tab-schedules" style="display:none;">
+            <h3>CRUD Horários</h3>
+            <div class="admin-controls admin-form">
+                <label for="schedule-psychologist">Psicólogo:</label>
+                <select id="schedule-psychologist"></select>
+                <label for="schedule-date">Data:</label>
+                <input type="date" id="schedule-date">
+                <label for="schedule-time">Horário:</label>
+                <input type="time" id="schedule-time">
+                <button onclick="createSchedule()">Adicionar Horário</button>
+            </div>
+            <div id="schedule-admin-list"></div>
+        </div>
+
+        <div class="admin-section admin-tab" id="tab-appointments" style="display:none;">
+            <h3>Listagem de Agendamentos</h3>
             <div id="appointments-admin-list"></div>
         </div>
 
-        <div class="admin-section">
-            <h3>Controle de Agendamento</h3>
-            <div class="admin-controls">
-                <label for="schedule-filter-date">Filtrar por data:</label>
-                <input type="date" id="schedule-filter-date" onchange="loadScheduleControl()">
-                <button onclick="loadScheduleControl()">Ver Agenda</button>
-                <button class="secondary-button" onclick="resetScheduleFilter()">Mostrar Todos</button>
-            </div>
-            <div id="schedule-control-list"></div>
-        </div>
-
-        <div class="admin-section">
-            <h3>Horários Disponíveis</h3>
-            <div class="admin-controls">
-                <label for="admin-data">Data:</label>
-                <input type="date" id="admin-data">
-                <label for="admin-hora">Horário:</label>
-                <select id="admin-hora">
-                    <option value="09:00">09:00</option>
-                    <option value="10:00">10:00</option>
-                    <option value="11:00">11:00</option>
-                    <option value="14:00">14:00</option>
-                    <option value="15:00">15:00</option>
-                    <option value="16:00">16:00</option>
-                </select>
-                <button onclick="addAvailableTime()">Adicionar horário</button>
-                <button class="secondary-button" onclick="removeAvailableTime()">Remover horário</button>
-            </div>
-            <div id="available-times-admin"></div>
-        </div>
-
-        <div class="admin-section">
-            <h3>Serviços</h3>
-            <div id="services-admin-list"></div>
-        </div>
+        <div id="admin-feedback" style="margin-top: 16px; color: #155724; display: none;"></div>
 
         <button class="secondary-button" onclick="logoutAdmin()">Sair</button>
     </section>

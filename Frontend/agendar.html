@@ -9,20 +9,37 @@
 <body>
 
 <header>
-    <h1>Clínica de Psicologia Equilíbrio</h1>
-    <p>Cuidando da sua saúde emocional</p>
+    <div class="logo">
+        <h2>🧠 Clínica de Psicologia Equilíbrio</h2>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="index.html#sobre">Sobre</a></li>
+            <li><a href="index.html#equipe">Equipe</a></li>
+            <li><a href="index.html#servicos">Serviços</a></li>
+            <li><a href="psicologos.html">Psicólogos</a></li>
+            <li><a href="admin.html" id="admin-link">Administração</a></li>
+        </ul>
+    </nav>
+    <button class="btn-menu" onclick="window.location.href='admin.html'">Administração</button>
 </header>
 
-<nav>
-    <a href="index.html">Início</a> |
-    <a href="index.html#sobre">Sobre</a> |
-    <a href="index.html#equipe">Equipe</a> |
-    <a href="index.html#servicos">Serviços</a> |
-    <a href="index.html#contato">Contato</a> |
-    <a href="admin.html">Administração</a>
-</nav>
-
 <main>
+
+<section class="hero">
+    <div class="texto">
+        <h1>Agende sua Consulta com Psicólogos de Confiança</h1>
+        <p>Escolha o profissional, o tipo de atendimento e marque seu horário de forma rápida e segura.</p>
+        <div class="botoes">
+            <a class="agendar" href="#form-agendamento">Agendar Consulta</a>
+            <a class="servicos" href="#agendamento-intro">Ver Serviços</a>
+        </div>
+    </div>
+    <div class="imagem">
+        <img src="https://images.unsplash.com/photo-1550831107-1553da8c8464?w=900" alt="Atendimento psicológico">
+    </div>
+</section>
 
 <section id="agendamento-intro">
     <h2>Agendamento de Consulta</h2>
@@ -58,34 +75,45 @@
 
 <hr>
 
-<section id="form-agendamento">
+<section id="form-agendamento" class="formulario">
     <h2>Preencha os Dados para Agendar</h2>
-    <p>Após o envio, entraremos em contato para confirmar a data e horário. Todas as informações são confidenciais.</p>
+    <p>Após escolher o psicólogo e o tipo de serviço, selecione o horário disponível. Todas as informações são confidenciais.</p>
 
-    <!-- Calendário de Disponibilidade -->
-    <div id="availability-calendar">
-        <h3>📅 Dias e Horários Disponíveis</h3>
-        <p>Clique em um dia para ver os horários disponíveis:</p>
-        <div id="calendar-grid"></div>
-        <div id="time-slots" style="display: none;">
-            <h4>Horários disponíveis para <span id="selected-date"></span>:</h4>
-            <div id="time-buttons"></div>
+    <div id="patient-auth" class="patient-auth">
+        <h3>Login de Paciente</h3>
+        <p>Entre com seu email para acessar seus agendamentos e continuar o processo.</p>
+        <div class="auth-row">
+            <input type="email" id="patient-email-login" placeholder="Email do paciente" />
+            <button type="button" onclick="patientLogin()">Entrar</button>
+            <button type="button" onclick="patientLogout()" id="patient-logout-button" style="display:none;">Sair</button>
         </div>
+        <p id="patient-auth-message" class="auth-message"></p>
+    </div>
+
+    <div id="psychologist-screen">
+        <h3>Escolha o Psicólogo</h3>
+        <p>Selecione o psicólogo que você deseja para acompanhar sua consulta.</p>
+        <div id="psychologist-list" class="psychologist-grid"></div>
+    </div>
+
+    <div id="schedule-preview" class="schedule-preview">
+        <h3>Agenda do psicólogo</h3>
+        <p>Selecione um psicólogo para visualizar a agenda disponível.</p>
     </div>
 
     <hr>
 
     <div id="form-steps">
         <div id="step-1" class="step active">
-            <h3>Passo 1: Escolha o Serviço</h3>
+            <h3>Passo 1: Psicólogo e Serviço</h3>
+            <p>Psicólogo selecionado: <strong id="selected-psychologist-name">Nenhum</strong></p>
+            <input type="hidden" id="selected-psychologist-id">
+
             <label for="servico">Tipo de Serviço:</label>
             <select id="servico" name="servico" required>
                 <option value="">Selecione um serviço</option>
-                <option value="individual">Terapia Individual</option>
-                <option value="casal">Terapia de Casal</option>
-                <option value="online">Atendimento Online</option>
-                <option value="orientacao">Orientação Psicológica</option>
             </select>
+
             <button type="button" onclick="nextStep(1)">Próximo</button>
         </div>
 
@@ -106,8 +134,9 @@
         </div>
 
         <div id="step-3" class="step">
-            <h3>Passo 3: Confirme Data e Horário</h3>
+            <h3>Passo 3: Escolha o Horário</h3>
             <div id="selected-appointment">
+                <p><strong>Psicólogo:</strong> <span id="confirm-psychologist">-</span></p>
                 <p><strong>Data selecionada:</strong> <span id="confirm-date">-</span></p>
                 <p><strong>Horário selecionado:</strong> <span id="confirm-time">-</span></p>
             </div>
@@ -120,6 +149,13 @@
         </div>
     </div>
 </section>
+
+<div id="psychologist-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closePsychologistModal()">×</button>
+        <div id="psychologist-details"></div>
+    </div>
+</div>
 
 <hr>
 
@@ -135,31 +171,6 @@
     <div id="appointments-list"></div>
 </section>
 
-
-<section id="admin" style="display:none;">
-    <h2>Painel Administrativo</h2>
-    <p>Acesso para secretária gerenciar horários.</p>
-    <button onclick="showAdmin()">Entrar como Admin</button>
-    <div id="admin-panel" style="display:none;">
-        <h3>Gerenciar Horários Disponíveis</h3>
-        <label for="admin-data">Data:</label>
-        <input type="date" id="admin-data">
-        <label for="admin-hora">Horário:</label>
-        <select id="admin-hora">
-            <option value="09:00">09:00</option>
-            <option value="10:00">10:00</option>
-            <option value="11:00">11:00</option>
-            <option value="14:00">14:00</option>
-            <option value="15:00">15:00</option>
-            <option value="16:00">16:00</option>
-        </select>
-        <button onclick="addAvailableTime()">Adicionar Horário Disponível</button>
-        <button onclick="removeAvailableTime()">Remover Horário Disponível</button>
-        <div id="available-times"></div>
-        <h3>Confirmar Consultas</h3>
-        <div id="pending-appointments"></div>
-    </div>
-</section>
 
 </main>
 

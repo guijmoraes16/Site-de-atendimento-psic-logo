@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psicólogos - Clínica de Psicologia Equilíbrio</title>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <h2>🧠 Clínica Psicologia</h2>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="psicologos.html">Psicólogos</a></li>
+            <li><a href="agendar.html">Agendamento</a></li>
+            <li><a href="admin.html">Administração</a></li>
+        </ul>
+    </nav>
+    <button class="btn-menu" onclick="window.location.href='agendar.html'">Agendar Consulta</button>
+</header>
+
+<section class="hero">
+    <div class="texto">
+        <h1>Escolha o psicólogo certo para a sua jornada.</h1>
+        <p>Veja a equipe completa, conheça as especialidades e agende sua consulta com o profissional ideal.</p>
+    </div>
+    <div class="imagem">
+        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=900" alt="Equipe de psicólogos">
+    </div>
+</section>
+
+<main>
+    <section class="formulario">
+        <h2>Conheça nossos Psicólogos</h2>
+        <p>Veja o perfil, a foto e as áreas de atuação de cada profissional. Escolha quem você deseja consultar.</p>
+        <div id="psychologist-list" class="psychologist-grid"></div>
+    </section>
+
+    <div id="psychologist-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closePsychologistModal()">×</button>
+            <div id="psychologist-details"></div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 Clínica de Psicologia Equilíbrio</p>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
