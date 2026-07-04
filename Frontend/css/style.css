@@ -12,6 +12,10 @@ body{
     color:#333;
 }
 
+main{
+    width:100%;
+}
+
 /* CABEÇALHO */
 
 header{
@@ -96,18 +100,27 @@ nav a:hover{
 }
 
 .agendar,
-.servicos{
-    padding:15px 28px;
+.servicos,
+#form-agendamento button,
+.patient-auth button,
+.step button,
+.schedule-slot{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:48px;
+    padding:12px 22px;
     border:none;
     border-radius:40px;
     cursor:pointer;
-    font-size:16px;
+    font-size:15px;
     transition:.3s;
 }
 
 .agendar{
     background:#2e8b57;
     color:white;
+    text-decoration:none;
 }
 
 .agendar:hover{
@@ -118,6 +131,7 @@ nav a:hover{
     background:white;
     border:2px solid #2e8b57;
     color:#2e8b57;
+    text-decoration:none;
 }
 
 .servicos:hover{
@@ -149,6 +163,46 @@ nav a:hover{
     box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
+#admin-page{
+    width:min(1100px, 92%);
+    margin:40px auto 60px;
+    display:flex;
+    justify-content:center;
+}
+
+#admin-login,
+.admin-panel{
+    width:100%;
+    max-width:900px;
+    margin:0 auto;
+    text-align:center;
+}
+
+#admin-login{
+    background:white;
+    padding:36px;
+    border-radius:24px;
+    box-shadow:0 16px 40px rgba(0,0,0,.08);
+}
+
+#admin-login form{
+    display:grid;
+    gap:14px;
+    max-width:420px;
+    margin:24px auto 0;
+    text-align:left;
+}
+
+#admin-login button,
+.admin-panel button{
+    width:100%;
+    max-width:100%;
+}
+
+.hero .imagem img{
+    border-radius:24px;
+}
+
 .formulario h2{
     text-align:center;
     margin-bottom:30px;
@@ -161,11 +215,19 @@ form{
 }
 
 input,
-select{
-    padding:15px;
+select,
+textarea{
+    width:100%;
+    min-height:48px;
+    padding:12px 14px;
     border:1px solid #ddd;
     border-radius:10px;
-    font-size:16px;
+    font-size:15px;
+}
+
+textarea{
+    min-height:110px;
+    resize:vertical;
 }
 
 form button{
@@ -499,6 +561,115 @@ form button:hover{
 
 .modal-content li{
     margin-bottom:8px;
+}
+
+.cadastro-page{
+    padding:60px 8% 80px;
+}
+
+.cadastro-hero{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:40px;
+    align-items:center;
+    background:linear-gradient(135deg, #f4fbf7 0%, #ffffff 100%);
+    border-radius:24px;
+    padding:40px;
+    box-shadow:0 16px 40px rgba(0,0,0,.08);
+}
+
+.cadastro-badge{
+    display:inline-block;
+    background:#e8f5ee;
+    color:#2e8b57;
+    padding:8px 14px;
+    border-radius:999px;
+    font-weight:600;
+    margin-bottom:16px;
+}
+
+.cadastro-copy h1{
+    font-size:38px;
+    color:#244b3d;
+    margin-bottom:16px;
+}
+
+.cadastro-copy p{
+    font-size:17px;
+    line-height:1.7;
+    color:#4a4a4a;
+}
+
+.cadastro-benefits{
+    list-style:none;
+    margin-top:20px;
+    display:grid;
+    gap:10px;
+}
+
+.cadastro-benefits li{
+    padding-left:22px;
+    position:relative;
+    color:#2e8b57;
+    font-weight:600;
+}
+
+.cadastro-benefits li::before{
+    content:"✓";
+    position:absolute;
+    left:0;
+    color:#2e8b57;
+}
+
+.cadastro-card{
+    background:white;
+    border-radius:20px;
+    padding:28px;
+    box-shadow:0 14px 32px rgba(0,0,0,.08);
+}
+
+.cadastro-card h2{
+    margin-bottom:20px;
+    color:#244b3d;
+}
+
+.cadastro-form{
+    display:grid;
+    gap:14px;
+}
+
+.cadastro-form input{
+    width:100%;
+}
+
+.cadastro-checkbox{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    font-size:14px;
+    color:#555;
+}
+
+.cadastro-checkbox input{
+    width:auto;
+    margin-top:3px;
+}
+
+.cadastro-form button{
+    margin-top:6px;
+}
+
+.cadastro-footer{
+    margin-top:16px;
+    text-align:center;
+    font-size:14px;
+    color:#666;
+}
+
+.cadastro-footer a{
+    color:#2e8b57;
+    font-weight:600;
+    text-decoration:none;
 }
 
 @media(max-width:1024px){
