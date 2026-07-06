@@ -145,13 +145,38 @@ function prevStep(current) {
 
 function validateStep(step) {
     if (step === 1) {
-        return selectedPsychologistId !== null && document.getElementById('servico').value !== '';
+        if (!selectedPsychologistId) {
+            showFeedback('Selecione um psicólogo antes de prosseguir.', 'error');
+            return false;
+        }
+        if (!document.getElementById('servico').value) {
+            showFeedback('Escolha um tipo de serviço.', 'error');
+            return false;
+        }
+        return true;
     } else if (step === 2) {
-        return document.getElementById('nome').value !== '' &&
-               document.getElementById('email').value !== '' &&
-               document.getElementById('telefone').value !== '';
+        const nome = document.getElementById('nome').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const telefone = document.getElementById('telefone').value.trim();
+
+        if (!nome || !email || !telefone) {
+            showFeedback('Preencha nome, e-mail e telefone para continuar.', 'error');
+            return false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showFeedback('Informe um e-mail válido.', 'error');
+            return false;
+        }
+
+        return true;
     } else if (step === 3) {
-        return selectedSchedule !== null;
+        if (!selectedSchedule) {
+            showFeedback('Selecione um horário para concluir o agendamento.', 'error');
+            return false;
+        }
+        return true;
     }
     return true;
 }
@@ -189,24 +214,36 @@ async function loadServices() {
     }
 }
 
+async function loadRandomUserPortraits(count = 4) {
+    try {
+        const response = await fetch(`https://randomuser.me/api/?results=${count}&nat=br`);
+        const data = await response.json();
+        return data.results.map(user => user.picture?.large || user.picture?.medium || '');
+    } catch (error) {
+        return [];
+    }
+}
+
 async function loadPsychologists() {
+    const portraits = await loadRandomUserPortraits(6);
+
     try {
         const data = await fetchJson(`${API_URL}/psicologos`);
-        psychologists = data.map(item => ({
+        psychologists = data.map((item, index) => ({
             id: item.id,
             nome: item.nome || item.name,
             titulo: item.titulo || item.title || 'Psicólogo(a)',
             bio: item.bio || item.biography || '',
-            foto: item.foto || item.photo || '',
+            foto: item.foto || item.photo || portraits[index % portraits.length] || 'https://randomuser.me/api/portraits/men/32.jpg',
             ativo: item.ativo !== false,
             detalhes: item.detalhes || [],
         }));
     } catch (error) {
         psychologists = [
-            { id: 1, nome: 'Dra. Ana Silva', titulo: 'Psicóloga Clínica', bio: 'Atendimento humanizado e focado em ansiedade e autoconhecimento.', foto: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg', ativo: true, detalhes: ['Terapia cognitiva', 'Apoio emocional', 'Mentalidade positiva'] },
-            { id: 2, nome: 'Dr. Carlos Souza', titulo: 'Psicólogo Familiar', bio: 'Especialista em relações familiares e orientação de casais.', foto: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg', ativo: true, detalhes: ['Terapia de casal', 'Apoio à família', 'Resolução de conflitos'] },
-            { id: 3, nome: 'Dra. Juliana Costa', titulo: 'Psicóloga Infantil', bio: 'Atendimento para crianças e adolescentes com cuidado afetivo.', foto: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg', ativo: true, detalhes: ['Atendimento infantil', 'Suporte escolar', 'Desenvolvimento emocional'] },
-            { id: 4, nome: 'Dra. Fernanda Lima', titulo: 'Psicóloga de Orientação Familiar', bio: 'Apoio a famílias, casais e jovens em transição.', foto: 'https://images.pexels.com/photos/1181465/pexels-photo-1181465.jpeg', ativo: true, detalhes: ['Terapia familiar', 'Aconselhamento', 'Orientação de decisões'] },
+            { id: 1, nome: 'Dra. Ana Silva', titulo: 'Psicóloga Clínica', bio: 'Atendimento humanizado e focado em ansiedade e autoconhecimento.', foto: portraits[0] || 'https://randomuser.me/api/portraits/women/32.jpg', ativo: true, detalhes: ['Terapia cognitiva', 'Apoio emocional', 'Mentalidade positiva'] },
+            { id: 2, nome: 'Dr. Carlos Souza', titulo: 'Psicólogo Familiar', bio: 'Especialista em relações familiares e orientação de casais.', foto: portraits[1] || 'https://randomuser.me/api/portraits/men/32.jpg', ativo: true, detalhes: ['Terapia de casal', 'Apoio à família', 'Resolução de conflitos'] },
+            { id: 3, nome: 'Dra. Juliana Costa', titulo: 'Psicóloga Infantil', bio: 'Atendimento para crianças e adolescentes com cuidado afetivo.', foto: portraits[2] || 'https://randomuser.me/api/portraits/women/33.jpg', ativo: true, detalhes: ['Atendimento infantil', 'Suporte escolar', 'Desenvolvimento emocional'] },
+            { id: 4, nome: 'Dra. Fernanda Lima', titulo: 'Psicóloga de Orientação Familiar', bio: 'Apoio a famílias, casais e jovens em transição.', foto: portraits[3] || 'https://randomuser.me/api/portraits/women/34.jpg', ativo: true, detalhes: ['Terapia familiar', 'Aconselhamento', 'Orientação de decisões'] },
         ];
     }
 }
@@ -226,14 +263,22 @@ function populatePsychologistList() {
     list.innerHTML = '';
 
     psychologists.forEach(psych => {
+        const specialties = Array.isArray(psych.detalhes) && psych.detalhes.length ? psych.detalhes : ['Atendimento acolhedor', 'Abordagem personalizada'];
         list.innerHTML += `
             <article class="psychologist-card">
-                <img src="${psych.foto}" alt="${psych.nome}">
-                <h4>${psych.nome}</h4>
-                <p>${psych.titulo}</p>
-                <p>${psych.bio}</p>
-                <button type="button" onclick="prepareBooking(${psych.id})">Agendar com este psicólogo</button>
-                <button type="button" onclick="showPsychologistDetailsById(${psych.id})">Ver Perfil</button>
+                <img src="${psych.foto}" alt="${psych.nome}" loading="lazy">
+                <div class="card-body">
+                    <span class="card-tag">${psych.titulo}</span>
+                    <h4>${psych.nome}</h4>
+                    <p>${psych.bio}</p>
+                    <ul class="speciality-list">
+                        ${specialties.slice(0, 3).map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                    <div class="card-actions">
+                        <button type="button" class="primary-action" onclick="prepareBooking(${psych.id})">Agendar</button>
+                        <button type="button" class="secondary-action" onclick="showPsychologistDetailsById(${psych.id})">Ver perfil</button>
+                    </div>
+                </div>
             </article>
         `;
     });
@@ -259,6 +304,10 @@ function showPsychologistDetailsById(id) {
             <p class="title">${psych.titulo}</p>
             <p>${psych.bio}</p>
             ${psych.detalhes && psych.detalhes.length ? `<ul>${psych.detalhes.map(item => `<li>${item}</li>`).join('')}</ul>` : ''}
+            <div class="detail-actions">
+                <button type="button" class="primary-action" onclick="prepareBooking(${psych.id}); closePsychologistModal();">Agendar consulta</button>
+                <button type="button" class="secondary-action" onclick="closePsychologistModal()">Fechar</button>
+            </div>
         </div>
     `;
     document.getElementById('psychologist-details').innerHTML = detailsHtml;
@@ -407,6 +456,36 @@ async function generateRandomUser() {
 }
 
 // Submit form
+async function createGoogleCalendarEvent(appointmentData) {
+    try {
+        if (!window.gapi || !window.gapi.client) {
+            return { success: false, message: 'Google Calendar não inicializado.' };
+        }
+
+        const event = {
+            summary: `Consulta - ${appointmentData.psicologo_name || 'Clínica'}`,
+            description: `Agendamento de consulta\nServiço: ${appointmentData.servico_name || ''}\nPaciente: ${appointmentData.nome}`,
+            start: {
+                dateTime: `${appointmentData.data}T${appointmentData.hora}:00`,
+                timeZone: 'America/Sao_Paulo'
+            },
+            end: {
+                dateTime: `${appointmentData.data}T${appointmentData.hora}:00`,
+                timeZone: 'America/Sao_Paulo'
+            }
+        };
+
+        const response = await window.gapi.client.calendar.events.insert({
+            calendarId: 'primary',
+            resource: event
+        });
+
+        return { success: true, eventId: response.result.id };
+    } catch (error) {
+        return { success: false, message: error.message || 'Erro ao criar evento no Google Calendar.' };
+    }
+}
+
 function submitForm() {
     if (!validateStep(3)) return;
 
@@ -433,50 +512,47 @@ function submitForm() {
         hora: selectedSchedule.time
     };
 
+    const appointmentRecord = {
+        ...formData,
+        status: 'pending',
+        id: Date.now(),
+        servico_name: serviceName,
+        psicologo_name: psychologist?.nome || ''
+    };
+
+    appointments.push(appointmentRecord);
+    localStorage.setItem('appointments', JSON.stringify(appointments));
+    localStorage.setItem('patient_email', formData.email);
+
+    showConfirmation(appointmentRecord);
+    loadAppointments();
+    resetForm();
+
     // Send to backend
     fetch(`${API_URL}/appointments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
     })
-    .then(res => res.json())
-    .then(resp => {
+    .then(async res => {
+        const resp = await res.json().catch(() => ({}));
         if (resp.success) {
-            const appointmentRecord = {
-                ...formData,
-                status: 'pending',
-                id: resp.id || Date.now(),
-                servico_name: serviceName,
-                psicologo_name: psychologist?.nome || ''
-            };
-            appointments.push(appointmentRecord);
-            localStorage.setItem('appointments', JSON.stringify(appointments));
-            localStorage.setItem('patient_email', formData.email);
-
-            showConfirmation(appointmentRecord);
-            loadAppointments();
-            resetForm();
             showFeedback('Agendamento enviado ao servidor com sucesso!', 'success');
         } else {
-            showFeedback('Falha ao enviar agendamento: ' + (resp.error || 'erro desconhecido'), 'error');
+            showFeedback('Agendamento salvo localmente. O servidor retornou: ' + (resp.error || 'erro desconhecido'), 'warning');
         }
     })
     .catch(err => {
-        const appointmentRecord = {
-            ...formData,
-            status: 'pending',
-            id: Date.now(),
-            servico_name: serviceName,
-            psicologo_name: psychologist?.nome || ''
-        };
-        appointments.push(appointmentRecord);
-        localStorage.setItem('appointments', JSON.stringify(appointments));
-        localStorage.setItem('patient_email', formData.email);
-        showConfirmation(appointmentRecord);
-        loadAppointments();
-        resetForm();
         showFeedback('Sem conexão com servidor — agendamento salvo localmente.', 'warning');
     });
+
+    if (window.gapi && window.gapi.client) {
+        createGoogleCalendarEvent(appointmentRecord).then(result => {
+            if (result.success) {
+                showFeedback('Agendamento salvo localmente e enviado para o Google Calendar.', 'success');
+            }
+        });
+    }
 }
 
 // Show confirmation
@@ -523,12 +599,22 @@ function loadAppointments() {
         : [];
 
     if (!userEmail) {
-        list.innerHTML = '<p>Faça login com seu email para ver seus agendamentos.</p>';
+        list.innerHTML = `
+            <div class="appointment-item empty-state">
+                <h4>Faça login para ver sua agenda</h4>
+                <p>Entre com seu e-mail para visualizar os agendamentos já realizados e acompanhar suas consultas.</p>
+            </div>
+        `;
         return;
     }
 
     if (visibleAppointments.length === 0) {
-        list.innerHTML = `<p>Você ainda não possui agendamentos registrados com este email.</p>`;
+        list.innerHTML = `
+            <div class="appointment-item empty-state">
+                <h4>Nenhum agendamento encontrado</h4>
+                <p>Você ainda não possui consultas registradas para este e-mail. Quando agendar, elas aparecerão aqui.</p>
+            </div>
+        `;
         return;
     }
 
@@ -544,9 +630,9 @@ function loadAppointments() {
             <h4>${app.nome}</h4>
             <p><strong>Psicólogo:</strong> ${app.psicologo_name || 'Não informado'}</p>
             <p><strong>Serviço:</strong> ${getServiceName(app.servico)}</p>
-            <p><strong>Data:</strong> ${app.data || '-' } às ${app.hora || '-'}</p>
+            <p><strong>Data:</strong> ${app.data || '-'} às ${app.hora || '-'}</p>
             <p><strong>Status:</strong> ${app.status === 'confirmed' ? 'Confirmado' : 'Pendente'}</p>
-            <p><strong>Email:</strong> ${app.email}</p>
+            <p><strong>E-mail:</strong> ${app.email}</p>
             <p><strong>Telefone:</strong> ${app.telefone}</p>
             ${app.mensagem ? `<p><strong>Mensagem:</strong> ${app.mensagem}</p>` : ''}
         `;

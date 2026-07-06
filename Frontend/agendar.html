@@ -41,34 +41,37 @@
     </div>
 </section>
 
-<section id="agendamento-intro">
-    <h2>Agendamento de Consulta</h2>
-    <p>Estamos aqui para ajudar você a cuidar da sua saúde mental. Escolha o tipo de atendimento que melhor se adapta às suas necessidades e agende sua consulta de forma simples e segura.</p>
+<section id="agendamento-intro" class="appointment-intro">
+    <div class="section-heading">
+        <span class="section-badge">Atendimento acolhedor</span>
+        <h2>Agendamento de Consulta</h2>
+        <p>Estamos aqui para ajudar você a cuidar da sua saúde mental. Escolha o tipo de atendimento que melhor se adapta às suas necessidades e agende sua consulta de forma simples e segura.</p>
+    </div>
 
-    <h3>Nossos Serviços Disponíveis</h3>
+    <h3 class="subsection-title">Nossos Serviços Disponíveis</h3>
     <div class="servicos-grid">
         <article class="servico-item">
             <h3>🧑‍⚕️ Terapia Individual</h3>
             <p>Sessões personalizadas para questões pessoais como ansiedade, depressão e estresse. Primeira consulta gratuita para avaliação.</p>
-            <p><strong>Valor:</strong> R$ 120 por sessão</p>
+            <p class="service-price"><strong>Valor:</strong> R$ 120 por sessão</p>
         </article>
 
         <article class="servico-item">
             <h3>👫 Terapia de Casal</h3>
             <p>Melhore a comunicação e resolva conflitos no relacionamento. Sessões conjuntas ou individuais.</p>
-            <p><strong>Valor:</strong> R$ 180 por sessão</p>
+            <p class="service-price"><strong>Valor:</strong> R$ 180 por sessão</p>
         </article>
 
         <article class="servico-item">
             <h3>💻 Atendimento Online</h3>
             <p>Consultas via videochamada pelo WhatsApp ou Zoom. Prático e confidencial.</p>
-            <p><strong>Valor:</strong> R$ 100 por sessão</p>
+            <p class="service-price"><strong>Valor:</strong> R$ 100 por sessão</p>
         </article>
 
         <article class="servico-item">
             <h3>🧠 Orientação Psicológica</h3>
             <p>Aconselhamento breve para questões específicas ou crises emocionais.</p>
-            <p><strong>Valor:</strong> R$ 80 por sessão</p>
+            <p class="service-price"><strong>Valor:</strong> R$ 80 por sessão</p>
         </article>
     </div>
 </section>
@@ -81,13 +84,14 @@
 
     <div id="patient-auth" class="patient-auth">
         <h3>Login de Paciente</h3>
-        <p>Entre com seu email para acessar seus agendamentos e continuar o processo.</p>
+        <p>Entre com seu e-mail para acessar seus agendamentos e continuar o processo de forma rápida.</p>
         <div class="auth-row">
-            <input type="email" id="patient-email-login" placeholder="Email do paciente" />
+            <input type="email" id="patient-email-login" placeholder="E-mail do paciente" />
             <button type="button" onclick="patientLogin()">Entrar</button>
             <button type="button" onclick="patientLogout()" id="patient-logout-button" style="display:none;">Sair</button>
         </div>
         <p id="patient-auth-message" class="auth-message"></p>
+        <p class="small-help">Ainda não tem conta? <a href="cadastro.html">Cadastre-se aqui</a>.</p>
     </div>
 
     <div id="psychologist-screen">
@@ -121,9 +125,9 @@
             <h3>Passo 2: Seus Dados</h3>
             <label for="nome">Nome Completo:</label>
             <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo">
-            <button type="button" onclick="generateRandomUser()">Gerar Dados Aleatórios</button><br>
+            <button type="button" class="secondary-button" onclick="generateRandomUser()">Gerar dados aleatórios</button>
 
-            <label for="email">Email:</label>
+            <label for="email">E-mail:</label>
             <input type="email" id="email" name="email" required placeholder="seuemail@exemplo.com">
 
             <label for="telefone">Telefone/WhatsApp:</label>
@@ -143,6 +147,7 @@
 
             <label for="mensagem">Mensagem (opcional):</label>
             <textarea id="mensagem" name="mensagem" placeholder="Conte-nos brevemente sobre sua necessidade ou dúvida"></textarea>
+            <p class="small-help">Ao confirmar, o agendamento será salvo no site e, se disponível, também tentaremos criar um evento no calendário do Google.</p>
 
             <button type="button" onclick="prevStep(3)">Anterior</button>
             <button type="button" onclick="submitForm()">Enviar Agendamento</button>
@@ -165,10 +170,13 @@
 </section>
 
 
-<section id="listagem">
-    <h2>Minha Agenda</h2>
-    <p>Veja abaixo os agendamentos já registrados para o seu contato. Se você ainda não agendou, essa área mostrará que não há consultas no momento.</p>
-    <div id="appointments-list"></div>
+<section id="listagem" class="agenda-section">
+    <div class="section-heading">
+        <span class="section-badge">Sua agenda</span>
+        <h2>Minha Agenda</h2>
+        <p>Veja abaixo os agendamentos já registrados para o seu contato. Se você ainda não agendou, essa área mostrará que não há consultas no momento.</p>
+    </div>
+    <div id="appointments-list" class="appointments-list"></div>
 </section>
 
 
