@@ -3,31 +3,27 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from core.database import get_banco
+from core.auth import obter_usuario_logado
 
-roteador = APIRouter(
-    prefix="/saude",
-    tags=["Saude Check"]
-)
+
+roteador = APIRouter(prefix="/saude", tags=["Saude"])
+
 
 @roteador.get("")
 def saude():
-    return {
-        "status": "UP",
-        "servico": "estudantes-api"
-    }
+    return {"status": "UP", "servico": "estudantes-api"}
+
 
 @roteador.get("/db")
 def saude_db(db: Session = Depends(get_banco)):
     try:
         db.execute(text("SELECT 1"))
 
-        return {
-            "status": "UP",
-            "banco de dados": "conectado"
-        }
+        return {"status": "UP", "banco de dados": "conectado"}
     except Exception as erro:
-        return {
-            "status": "DOWN",
-            "banco de dados": "desconectado",
-            "ERRO": str(erro)
-        }
+        return {"status": "DOWN", "banco de dados": "desconectado", "ERRO": str(erro)}
+
+
+@roteador.get("/me")
+def perfil(usuario=Depends(obter_usuario_logado)):
+    return usuario
