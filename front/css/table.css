@@ -1,0 +1,33 @@
+.table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+.table th {
+
+    background: var(--primary);
+
+    color: white;
+
+    text-align: left;
+
+    padding: 1rem;
+
+}
+
+.table td {
+
+    padding: 1rem;
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+.table tbody tr:hover {
+
+    background: #f8fbff;
+
+}

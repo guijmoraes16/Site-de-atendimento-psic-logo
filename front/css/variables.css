@@ -1,0 +1,26 @@
+:root {
+
+    /* Falta definir font-family */
+
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+
+    --success: #16a34a;
+    --danger: #dc2626;
+    --warning: #f59e0b;
+
+    --background: #f4f7fb;
+
+    --card: #ffffff;
+
+    --text: #1e293b;
+
+    --muted: #64748b;
+
+    --border: #dbe4f0;
+
+    --shadow: 0 10px 30px rgba(0, 0, 0, .08);
+
+    --radius: 16px;
+
+}

@@ -1,0 +1,202 @@
+/* ==========================
+   CONTAINER
+========================== */
+
+.container {
+
+    width: min(1200px, 95%);
+
+    margin: auto;
+
+}
+
+
+/* ==========================
+   CARDS
+========================== */
+
+.card {
+
+    background: var(--card);
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    padding: 2rem;
+
+}
+
+
+/* ==========================
+   BOTÕES
+========================== */
+
+.btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: .6rem;
+
+    padding: .8rem 1.4rem;
+
+    border: none;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-size: .95rem;
+
+    font-weight: 600;
+
+    transition: .25s;
+
+    text-decoration: none;
+
+}
+
+.btn:hover {
+
+    transform: translateY(-2px);
+
+}
+
+.btn-primary {
+
+    background: var(--primary);
+
+    color: white;
+
+}
+
+.btn-primary:hover {
+
+    background: var(--primary-hover);
+
+}
+
+.btn-danger {
+
+    background: var(--danger);
+
+    color: white;
+
+}
+
+.btn-success {
+
+    background: var(--success);
+
+    color: white;
+
+}
+
+.btn-outline {
+
+    background: white;
+
+    border: 2px solid var(--primary);
+
+    color: var(--primary);
+
+}
+
+
+/* ==========================
+   TÍTULOS
+========================== */
+
+.page-title {
+
+    font-size: 2.2rem;
+
+    color: var(--text);
+
+    margin-bottom: .5rem;
+
+    font-weight: 700;
+
+}
+
+.page-subtitle {
+
+    color: var(--muted);
+
+    margin-bottom: 2rem;
+
+}
+
+
+/* ==========================
+   FLEX
+========================== */
+
+.d-flex {
+
+    display: flex;
+
+}
+
+.justify-between {
+
+    justify-content: space-between;
+
+}
+
+.align-center {
+
+    align-items: center;
+
+}
+
+.gap-1 {
+
+    gap: 1rem;
+
+}
+
+.gap-2 {
+
+    gap: 2rem;
+
+}
+
+
+/* ==========================
+   ESPAÇAMENTOS
+========================== */
+
+.mt-1 {
+
+    margin-top: 1rem;
+
+}
+
+.mt-2 {
+
+    margin-top: 2rem;
+
+}
+
+.mt-3 {
+
+    margin-top: 3rem;
+
+}
+
+.mb-1 {
+
+    margin-bottom: 1rem;
+
+}
+
+.mb-2 {
+
+    margin-bottom: 2rem;
+
+}
