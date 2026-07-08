@@ -40,7 +40,7 @@ function renderizarTabela(psicologos) {
       <tr>
 
         <td>
-          <strong>${psicologo.nome}</strong>
+          ${psicologo.nome}
         </td>
 
         <td>

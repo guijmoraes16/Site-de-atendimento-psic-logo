@@ -21,9 +21,9 @@ async function carregarDashboard() {
   } catch {}
 
   try {
-    // const servicos = await ServicoService.listar();
+    const servicos = await ServicoService.listar();
 
-    document.getElementById("totalServicos").textContent = 0;
+    document.getElementById("totalServicos").textContent = servicos.total;
   } catch {}
 
   try {
