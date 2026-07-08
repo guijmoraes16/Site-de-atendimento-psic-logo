@@ -15,9 +15,9 @@ async function carregarDashboard() {
   } catch {}
 
   try {
-    // const psicologos = await PsicologoService.listar();
+    const psicologos = await PsicologoService.listar();
 
-    document.getElementById("totalPsicologos").textContent = 0;
+    document.getElementById("totalPsicologos").textContent = psicologos.total;
   } catch {}
 
   try {

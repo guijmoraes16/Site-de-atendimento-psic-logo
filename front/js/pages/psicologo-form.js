@@ -1,6 +1,6 @@
 const params = new URLSearchParams(window.location.search);
 
-const pacienteId = params.get("id");
+const psicologoId = params.get("id");
 
 document.addEventListener("DOMContentLoaded", inicializar);
 
@@ -10,61 +10,65 @@ async function inicializar() {
   carregarUsuario();
 
   document
-    .getElementById("formPaciente")
-    .addEventListener("submit", salvarPaciente);
+    .getElementById("formPsicologo")
+    .addEventListener("submit", salvarPsicologo);
 
-  if (pacienteId) {
-    document.getElementById("tituloPagina").innerText = "Editar Paciente";
+  if (psicologoId) {
+    document.getElementById("tituloPagina").innerText = "Editar Psicólogo";
 
-    carregarPaciente();
+    await carregarPsicologo();
   }
 }
 
-async function carregarPaciente() {
+async function carregarPsicologo() {
   try {
-    const paciente = await PacienteService.buscar(pacienteId);
+    const resposta = await PsicologoService.buscar(psicologoId);
 
-    document.getElementById("nome").value = paciente.nome;
+    const psicologo = resposta.psicologo;
 
-    document.getElementById("cpf").value = paciente.cpf;
+    document.getElementById("nome").value = psicologo.nome;
 
-    document.getElementById("telefone").value = paciente.telefone;
+    document.getElementById("titulo").value = psicologo.titulo;
 
-    document.getElementById("email").value = paciente.email;
+    document.getElementById("bio").value = psicologo.bio;
 
-    document.getElementById("data_nascimento").value = paciente.data_nascimento;
+    document.getElementById("foto").value = psicologo.foto;
+
+    document.getElementById("ativo").checked = psicologo.ativo;
   } catch (erro) {
     alert(erro.message);
+
+    window.location.href = "psicologos.html";
   }
 }
 
-async function salvarPaciente(e) {
+async function salvarPsicologo(e) {
   e.preventDefault();
 
-  const paciente = {
-    nome: document.getElementById("nome").value,
+  const psicologo = {
+    nome: document.getElementById("nome").value.trim(),
 
-    cpf: document.getElementById("cpf").value,
+    titulo: document.getElementById("titulo").value.trim(),
 
-    telefone: document.getElementById("telefone").value,
+    bio: document.getElementById("bio").value.trim(),
 
-    email: document.getElementById("email").value,
+    foto: document.getElementById("foto").value.trim(),
 
-    data_nascimento: document.getElementById("data_nascimento").value,
+    ativo: document.getElementById("ativo").checked,
   };
 
   try {
-    if (pacienteId) {
-      await PacienteService.atualizar(pacienteId, paciente);
+    if (psicologoId) {
+      await PsicologoService.atualizar(psicologoId, psicologo);
 
-      alert("Paciente atualizado.");
+      alert("Psicólogo atualizado com sucesso!");
     } else {
-      await PacienteService.criar(paciente);
+      await PsicologoService.criar(psicologo);
 
-      alert("Paciente cadastrado.");
+      alert("Psicólogo cadastrado com sucesso!");
     }
 
-    window.location.href = "pacientes.html";
+    window.location.href = "psicologos.html";
   } catch (erro) {
     alert(erro.message);
   }

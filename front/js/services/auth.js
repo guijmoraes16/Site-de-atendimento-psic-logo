@@ -39,15 +39,16 @@ const Auth = {
   },
 
   async buscarUsuario() {
-    return await API.request(
-      "/saude/me",
+    const usuarioLogado = await API.request("/saude/me", "GET", null, true);
 
+    const usuario = await API.request(
+      `/usuarios/${usuarioLogado.sub}`,
       "GET",
-
       null,
-
       true
     );
+
+    return usuario.objeto;
   },
 
   getUsuario() {
