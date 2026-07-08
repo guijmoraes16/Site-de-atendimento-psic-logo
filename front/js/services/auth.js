@@ -64,7 +64,7 @@ const Auth = {
 
     Utils.remover(STORAGE.USUARIO);
 
-    window.location.href = "login.html";
+    window.location.href = "inicio.html";
   },
 
   verificarAutenticacao() {
