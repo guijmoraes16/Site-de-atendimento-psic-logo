@@ -122,7 +122,7 @@ async function excluirHorario(id) {
   try {
     await HorarioService.excluir(id);
 
-    carregarHorarios();
+    carregarTodosHorarios();
   } catch (erro) {
     alert(erro.message);
   }

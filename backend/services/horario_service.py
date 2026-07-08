@@ -147,15 +147,18 @@ class HorarioService:
     # ==========================
     # DELETE
     # ==========================
-    def excluir(
-        self,
-        horario_id,
-    ):
+    def excluir(self, horario_id):
 
         horario = self.repository.get_by_id(horario_id)
 
         if not horario:
             raise HTTPException(status_code=404, detail="Horário não encontrado.")
+
+        if self.repository.possui_agendamento(horario_id):
+            raise HTTPException(
+                status_code=409,
+                detail="Este horário possui um agendamento e não pode ser excluído.",
+            )
 
         self.repository.delete(horario)
 
