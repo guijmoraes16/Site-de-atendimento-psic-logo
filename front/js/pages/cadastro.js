@@ -1,3 +1,12 @@
+document.addEventListener("DOMContentLoaded", () => {
+  if (Auth.getToken()) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  document.getElementById("formLogin").addEventListener("submit", login);
+});
+
 document.getElementById("formCadastro").addEventListener("submit", cadastrar);
 
 async function cadastrar(e) {

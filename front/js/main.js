@@ -1,10 +1,22 @@
-document.addEventListener("DOMContentLoaded", () => {
-  if (
-    window.location.pathname.includes("login.html") ||
-    window.location.pathname.includes("cadastro.html")
-  ) {
+document.addEventListener("DOMContentLoaded", verificarSessao);
+
+async function verificarSessao() {
+  const paginasPublicas = ["login.html", "cadastro.html"];
+
+  const paginaAtual = location.pathname.split("/").pop();
+
+  if (paginasPublicas.includes(paginaAtual)) return;
+
+  const token = Auth.getToken();
+
+  if (!token) {
+    window.location.href = "login.html";
     return;
   }
 
-  Auth.verificarAutenticacao();
-});
+  try {
+    await Auth.buscarUsuario();
+  } catch {
+    Auth.logout();
+  }
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Paciente | Clínica PSI</title>
+
+    <link rel="stylesheet" href="css/main.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
+
+  <body>
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>
+          <i class="bi bi-heart-pulse-fill"></i>
+
+          Clínica PSI
+        </h2>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="index.html">
+          <i class="bi bi-grid-1x2-fill"></i>
+
+          Dashboard
+        </a>
+
+        <a href="pacientes.html" class="active">
+          <i class="bi bi-people-fill"></i>
+
+          Pacientes
+        </a>
+
+        <a href="psicologos.html">
+          <i class="bi bi-person-badge-fill"></i>
+
+          Psicólogos
+        </a>
+
+        <a href="servicos.html">
+          <i class="bi bi-clipboard2-pulse-fill"></i>
+
+          Serviços
+        </a>
+
+        <a href="horarios.html">
+          <i class="bi bi-clock-fill"></i>
+
+          Horários
+        </a>
+
+        <a href="agendamentos.html">
+          <i class="bi bi-calendar-check-fill"></i>
+
+          Agendamentos
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <strong id="usuarioNome">Usuário</strong>
+      </div>
+    </aside>
+
+    <div class="content">
+      <header class="navbar">
+        <h2 id="tituloPagina">Novo Paciente</h2>
+
+        <button class="btn btn-outline" onclick="Auth.logout()">
+          <i class="bi bi-box-arrow-right"></i>
+
+          Sair
+        </button>
+      </header>
+
+      <main class="main">
+        <div class="card">
+          <form id="formPaciente">
+            <div class="form-group">
+              <label>Nome</label>
+
+              <input id="nome" class="form-control" type="text" required />
+            </div>
+
+            <div class="grid grid-2">
+              <div class="form-group">
+                <label>CPF</label>
+
+                <input id="cpf" class="form-control" type="text" required />
+              </div>
+
+              <div class="form-group">
+                <label>Telefone</label>
+
+                <input
+                  id="telefone"
+                  class="form-control"
+                  type="text"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Email</label>
+
+              <input id="email" class="form-control" type="email" required />
+            </div>
+
+            <div class="form-group">
+              <label>Data de nascimento</label>
+
+              <input id="data_nascimento" class="form-control" type="date" />
+            </div>
+
+            <div class="d-flex gap-1 mt-2">
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-check-circle-fill"></i>
+
+                Salvar
+              </button>
+
+              <a href="pacientes.html" class="btn btn-danger"> Cancelar </a>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/main.js"></script>
+
+    <script src="js/services/api.js"></script>
+    <script src="js/services/auth.js"></script>
+    <script src="js/services/pacienteService.js"></script>
+
+    <script src="js/pages/paciente-form.js"></script>
+  </body>
+</html>

@@ -4,14 +4,20 @@
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
 
-    min-height: 100vh;
+    font-family: var(--font);
 
-    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background);
+
+    color: var(--text);
+
+}
+
+button,
+input,
+select {
+
+    font-family: inherit;
 
 }
