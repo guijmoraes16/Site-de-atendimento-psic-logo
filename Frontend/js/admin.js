@@ -1,6 +1,29 @@
 // URL base da sua API backend
 const API_URL = 'http://127.0.0.1:8000';
 
+async function requestAdminJson(path, options = {}) {
+    const response = await fetch(`${API_URL}${path}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            ...(options.headers || {}),
+        },
+        ...options,
+    });
+
+    let data = null;
+    try {
+        data = await response.json();
+    } catch (error) {
+        data = null;
+    }
+
+    if (!response.ok) {
+        throw new Error(data?.detail || data?.message || data?.mensagem || 'Erro ao comunicar com a API.');
+    }
+
+    return data;
+}
+
 let adminPsychologists = JSON.parse(localStorage.getItem('admin_psychologists')) || [];
 let adminServices = JSON.parse(localStorage.getItem('admin_services')) || [];
 let adminSchedules = JSON.parse(localStorage.getItem('admin_schedules')) || [];
@@ -27,19 +50,10 @@ async function realizarLogin(event) {
     erroDiv.style.display = 'none';
 
     try {
-        const response = await fetch(`${API_URL}/usuarios/login`, {
+        const data = await requestAdminJson('/usuarios/login', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify({ email, senha })
         });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.detail || 'Erro ao realizar login.');
-        }
 
         // Salva o token com segurança no navegador
         localStorage.setItem('access_token', data.access_token);
@@ -106,21 +120,13 @@ async function createPatient() {
     }
 
     try {
-        const response = await fetch(`${API_URL}/usuarios`, {
+        const paciente = await requestAdminJson('/usuarios', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': token ? `Bearer ${token}` : ''
             },
             body: JSON.stringify({ nome, email, telefone, senha })
         });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.detail || 'Erro ao cadastrar paciente.');
-        }
-
-        const paciente = await response.json();
         showAdminFeedback('Paciente cadastrado com sucesso.');
         document.getElementById('patient-name').value = '';
         document.getElementById('patient-email').value = '';
@@ -135,16 +141,11 @@ async function createPatient() {
 async function carregarPacientes() {
     const token = localStorage.getItem('access_token');
     try {
-        const response = await fetch(`${API_URL}/usuarios`, {
+        const data = await requestAdminJson('/usuarios', {
             headers: {
-                'Authorization': token ? `Bearer ${token}` : '',
-                'Content-Type': 'application/json'
+                'Authorization': token ? `Bearer ${token}` : ''
             }
         });
-        if (!response.ok) {
-            throw new Error('Falha ao carregar pacientes.');
-        }
-        const data = await response.json();
         const pacientes = Array.isArray(data) ? data : data.objetos || [];
         const list = document.getElementById('patient-admin-list');
         if (!list) return;

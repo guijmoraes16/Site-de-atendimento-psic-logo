@@ -163,6 +163,63 @@ nav a:hover{
     box-shadow:0 14px 40px rgba(0,0,0,.08);
 }
 
+.historia{
+    padding:70px 8% 60px;
+    background:#f7faf9;
+}
+
+.historia .container{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:24px;
+    align-items:start;
+}
+
+.historia-card{
+    background:#ffffff;
+    border:1px solid #e5ece8;
+    border-radius:18px;
+    padding:28px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.05);
+}
+
+.historia-card h3{
+    font-size:22px;
+    color:#244b3d;
+    margin-bottom:12px;
+}
+
+.historia-card p{
+    color:#5f6f6a;
+    line-height:1.8;
+}
+
+.historia-list{
+    list-style:none;
+    display:grid;
+    gap:10px;
+    margin-top:18px;
+}
+
+.historia-list li{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#244b3d;
+    font-weight:500;
+}
+
+.historia-list li::before{
+    content:"✦";
+    color:#2e8b57;
+}
+
+@media (max-width: 768px){
+    .historia .container{
+        grid-template-columns:1fr;
+    }
+}
+
 .psychologist-hero{
     gap:40px;
     padding:90px 8% 70px;
@@ -170,15 +227,15 @@ nav a:hover{
 
 .section-badge{
     display:inline-block;
-    padding:8px 14px;
+    padding:7px 12px;
     border-radius:999px;
-    background:#e7f6ee;
+    background:#eaf7ef;
     color:#2e8b57;
-    font-size:13px;
-    font-weight:700;
+    font-size:12px;
+    font-weight:600;
     letter-spacing:.04em;
     text-transform:uppercase;
-    margin-bottom:16px;
+    margin-bottom:14px;
 }
 
 .hero-highlights{
@@ -270,6 +327,46 @@ nav a:hover{
     margin:40px auto 60px;
     display:flex;
     justify-content:center;
+}
+
+#especialidades{
+    text-align:center;
+    padding:70px 8% 60px;
+}
+
+#especialidades > h2{
+    text-align:center;
+    margin-bottom:30px;
+    color:#244b3d;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:20px;
+    justify-items:center;
+    align-items:stretch;
+}
+
+.card{
+    width:100%;
+    max-width:260px;
+    text-align:center;
+    padding:24px 20px;
+    background:#ffffff;
+    border:1px solid #e2efe8;
+    border-radius:18px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.05);
+}
+
+.card h3{
+    color:#2e8b57;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#5f6f6a;
+    line-height:1.7;
 }
 
 #admin-login,

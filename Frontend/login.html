@@ -81,56 +81,38 @@
     </footer>
 
     <script>
-      const API_URL = "http://localhost:8000/auth/login";
-      // Caso utilize outro endereço, altere a URL.
+      const API_URL = "http://127.0.0.1:8000";
 
-      document
-        .getElementById("loginForm")
-        .addEventListener("submit", async function (e) {
-          e.preventDefault();
+      document.getElementById("loginForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-          const email = document.getElementById("email").value;
-          const senha = document.getElementById("senha").value;
+        const email = document.getElementById("email").value.trim();
+        const senha = document.getElementById("senha").value;
 
-          try {
-            const resposta = await fetch(API_URL, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                email: email,
-                senha: senha,
-              }),
-            });
+        try {
+          const resposta = await fetch(`${API_URL}/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, senha }),
+          });
 
-            const dados = await resposta.json();
+          const dados = await resposta.json().catch(() => ({}));
 
-            if (resposta.ok) {
-              // Salva o token caso a API retorne um
-              if (dados.access_token) {
-                localStorage.setItem("token", dados.access_token);
-              }
-
-              // Salva o usuário caso a API retorne
-              if (dados.usuario) {
-                localStorage.setItem("usuario", JSON.stringify(dados.usuario));
-              }
-
-              alert("Login realizado com sucesso!");
-
-              // Redireciona para a página privada
-              window.location.href = "privada.html";
-            } else {
-              alert(
-                dados.detail || dados.message || "E-mail ou senha inválidos.",
-              );
-            }
-          } catch (erro) {
-            console.error(erro);
-            alert("Erro ao conectar com a API.");
+          if (!resposta.ok) {
+            throw new Error(dados.detail || dados.message || "E-mail ou senha inválidos.");
           }
-        });
+
+          if (dados.access_token) {
+            localStorage.setItem("token", dados.access_token);
+          }
+
+          alert("Login realizado com sucesso!");
+          window.location.href = "agendar.html";
+        } catch (erro) {
+          console.error(erro);
+          alert(erro.message || "Erro ao conectar com a API.");
+        }
+      });
     </script>
   </body>
 </html>
