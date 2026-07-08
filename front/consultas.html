@@ -5,7 +5,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Serviços | Clínica PSI</title>
+    <title>Consultas | Clínica PSI</title>
 
     <link rel="stylesheet" href="css/main.css" />
 
@@ -16,6 +16,8 @@
   </head>
 
   <body>
+    <!-- SIDEBAR -->
+
     <aside class="sidebar">
       <div class="sidebar-header">
         <h2>
@@ -27,7 +29,7 @@
 
       <nav class="sidebar-menu">
         <a href="index.html">
-          <i class="bi bi-grid-1x2-fill"></i>
+          <i class="bi bi-grid-fill"></i>
 
           Dashboard
         </a>
@@ -44,7 +46,7 @@
           Psicólogos
         </a>
 
-        <a class="active" href="servicos.html">
+        <a href="servicos.html">
           <i class="bi bi-clipboard2-pulse-fill"></i>
 
           Serviços
@@ -56,7 +58,7 @@
           Horários
         </a>
 
-        <a href="consultas.html">
+        <a class="active" href="consultas.html">
           <i class="bi bi-calendar-check-fill"></i>
 
           Consultas
@@ -67,6 +69,8 @@
         <strong id="usuarioNome"></strong>
       </div>
     </aside>
+
+    <!-- CONTEÚDO -->
 
     <div class="content">
       <header class="navbar">
@@ -82,15 +86,15 @@
       <main class="main">
         <div class="page-header d-flex justify-between align-center">
           <div>
-            <h1>Serviços</h1>
+            <h1>Consultas</h1>
 
-            <p>Gerencie os serviços oferecidos pela clínica.</p>
+            <p>Gerencie os agendamentos da clínica.</p>
           </div>
 
-          <a href="servico-form.html" class="btn btn-primary">
+          <a href="consulta-form.html" class="btn btn-primary">
             <i class="bi bi-plus-circle-fill"></i>
 
-            Novo Serviço
+            Nova Consulta
           </a>
         </div>
 
@@ -99,8 +103,7 @@
             <input
               id="pesquisa"
               class="form-control"
-              type="text"
-              placeholder="Pesquisar serviço..."
+              placeholder="Pesquisar paciente..."
             />
 
             <button id="btnPesquisar" class="btn btn-primary">
@@ -111,14 +114,19 @@
           </div>
 
           <div class="table-responsive">
-            <table class="table" id="tabelaServicos">
+            <table class="table" id="tabelaConsultas">
               <thead>
                 <tr>
-                  <th>Nome</th>
-                  <th>Modalidade</th>
-                  <th>Valor</th>
-                  <th>Duração</th>
+                  <th>Paciente</th>
+
+                  <th>Psicólogo</th>
+
+                  <th>Serviço</th>
+
+                  <th>Data</th>
+
                   <th>Status</th>
+
                   <th width="170">Ações</th>
                 </tr>
               </thead>
@@ -138,8 +146,8 @@
 
     <script src="js/services/auth.js"></script>
 
-    <script src="js/services/servicoService.js"></script>
+    <script src="js/services/consultaService.js"></script>
 
-    <script src="js/pages/servicos.js"></script>
+    <script src="js/pages/consultas.js"></script>
   </body>
 </html>

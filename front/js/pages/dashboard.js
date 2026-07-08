@@ -27,8 +27,9 @@ async function carregarDashboard() {
   } catch {}
 
   try {
-    // const agendamentos = await AgendamentoService.listar();
+    const agendamentos = await ConsultaService.listar();
 
-    document.getElementById("totalAgendamentos").textContent = 0;
+    document.getElementById("totalAgendamentos").textContent =
+      agendamentos.total;
   } catch {}
 }

@@ -112,6 +112,22 @@
     border-radius: 10px;
 }
 
+.btn-warning {
+
+    background: var(--warning);
+
+    color: white;
+
+}
+
+.badge-primary {
+
+    background: rgba(37, 99, 235, .12);
+
+    color: var(--primary);
+
+}
+
 /* ==========================
    TÍTULOS
 ========================== */
