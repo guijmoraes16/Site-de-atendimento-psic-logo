@@ -163,6 +163,63 @@ nav a:hover {
     box-shadow: 0 14px 40px rgba(0, 0, 0, .08);
 }
 
+.historia{
+    padding:70px 8% 60px;
+    background:#f7faf9;
+}
+
+.historia .container{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:24px;
+    align-items:start;
+}
+
+.historia-card{
+    background:#ffffff;
+    border:1px solid #e5ece8;
+    border-radius:18px;
+    padding:28px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.05);
+}
+
+.historia-card h3{
+    font-size:22px;
+    color:#244b3d;
+    margin-bottom:12px;
+}
+
+.historia-card p{
+    color:#5f6f6a;
+    line-height:1.8;
+}
+
+.historia-list{
+    list-style:none;
+    display:grid;
+    gap:10px;
+    margin-top:18px;
+}
+
+.historia-list li{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#244b3d;
+    font-weight:500;
+}
+
+.historia-list li::before{
+    content:"✦";
+    color:#2e8b57;
+}
+
+@media (max-width: 768px){
+    .historia .container{
+        grid-template-columns:1fr;
+    }
+}
+
 .psychologist-hero {
     gap: 40px;
     padding: 90px 8% 70px;
@@ -1194,3 +1251,36 @@ footer p {
     }
 
 }
+
+.whatsapp-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 65px;
+    height: 65px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,.3);
+    transition: all .3s ease;
+    z-index: 9999;
+}
+
+.whatsapp-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 65px;
+    height: 65px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,.3);
+    transition: all .3s ease;
+    z-index: 9999;
+}
+

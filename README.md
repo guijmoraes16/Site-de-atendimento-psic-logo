@@ -124,3 +124,7 @@ uvicorn main:app --reload
 
 Projeto desenvolvido como parte de um sistema de gestão para clínica de psicologia.
 
+
+Essa página vai ser um painel administrativo do sistema, onde o administrador consegue acompanhar e controlar as principais áreas do atendimento. Em resumo, ela funciona como um centro de gestão para organizar pacientes, psicólogos, serviços, horários e consultas de forma centralizada e prática.
+
+![alt text](imagens/image-1.png)
