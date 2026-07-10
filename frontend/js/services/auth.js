@@ -64,12 +64,12 @@ const Auth = {
 
     Utils.remover(STORAGE.USUARIO);
 
-    window.location.href = "inicio.html";
+    window.location.href = "index.html";
   },
 
   verificarAutenticacao() {
     if (!this.getToken()) {
-      window.location.href = "login.html";
+      window.location.href = "index.html";
     }
   },
 };
