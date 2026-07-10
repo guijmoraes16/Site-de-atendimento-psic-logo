@@ -16,9 +16,7 @@ roteador = APIRouter(prefix="/auth", tags=["Auth"])
 )
 def login(dados: LoginRequest, db: Session = Depends(get_banco)):
     usuario = db.query(Usuario).filter(Usuario.email == dados.email).first()
-    print(usuario.senha)
-    print(gerar_hash(dados.senha))
-    print(dados.senha)
+
     if not usuario or not verificar_senha(dados.senha, usuario.senha):
         raise HTTPException(status_code=401, detail="Email ou senha inválidos")
 

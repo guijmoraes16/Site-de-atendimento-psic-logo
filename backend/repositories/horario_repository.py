@@ -3,6 +3,7 @@ from datetime import date, time
 from sqlalchemy.orm import Session
 
 from models.horario_disponivel import HorarioDisponivel
+from models.agendamento import Agendamento
 
 
 class HorarioRepository:
@@ -108,3 +109,10 @@ class HorarioRepository:
     def marcar_disponivel(self, horario):
         horario.disponivel = True
         self.db.commit()
+
+    def possui_agendamento(self, horario_id: int):
+        return (
+            self.db.query(Agendamento)
+            .filter(Agendamento.horario_id == horario_id)
+            .first()
+        )

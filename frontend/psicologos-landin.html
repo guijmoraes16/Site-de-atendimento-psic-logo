@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Psicólogos - Clínica de Psicologia </title>
+    <link href="css/style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <h2>🧠 Clínica de Psicologia</h2>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="inicio.html">Início</a></li>
+          <li>
+            <a href="inicio.html#especialidades">Especialidades</a>
+          </li>
+          <li><a href="psicologos.html">Psicólogos</a></li>
+          <li><a href="inicio.html#contato">Contato</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="hero psychologist-hero">
+      <div class="texto">
+        <span class="section-badge">Equipe acolhedora</span>
+        <h1>Escolha o psicólogo certo para a sua jornada.</h1>
+        <p>
+          Veja a equipe completa, conheça as especialidades e agende sua
+          consulta com o profissional ideal em poucos cliques.
+        </p>
+        <div class="botoes">
+          <a class="servicos" href="#psychologist-list">Ver profissionais</a>
+        </div>
+        <div class="hero-highlights">
+          <div>
+            <strong>+4</strong>
+            <span>especialidades</span>
+          </div>
+          <div>
+            <strong>100%</strong>
+            <span>atendimento acolhedor</span>
+          </div>
+          <div>
+            <strong>Online</strong>
+            <span>e presencial</span>
+          </div>
+        </div>
+      </div>
+      <div class="imagem hero-visual">
+        <div class="hero-card">
+          <img
+            src="https://www.psicologosberrini.com.br/wp-content/uploads/terapia-em-grupo-como-funciona-1.jpg"
+            alt="Equipe de psicólogos"
+            onerror="this.onerror=null; this.src='https://source.unsplash.com/featured/900x900?psychology,therapy,team&sig=psicologos';"
+          />
+          <div class="hero-card-caption">
+            <span>Atendimento humanizado</span>
+            <strong>Profissionais preparados para acolher</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section class="formulario psychologist-intro">
+        <div class="section-heading">
+          <span class="section-badge">Nossa equipe</span>
+          <h2>Conheça nossos psicólogos</h2>
+          <p>
+            Veja o perfil, as especialidades e as formas de atendimento de cada
+            profissional.
+          </p>
+        </div>
+        <div id="psychologist-list" class="psychologist-grid"></div>
+      </section>
+
+      <div id="psychologist-modal" class="modal" style="display: none">
+        <div class="modal-content">
+          <button class="modal-close" onclick="closePsychologistModal()">
+            ×
+          </button>
+          <div id="psychologist-details"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer id="contato">
+      <h2>Clínica Psicologia</h2>
+
+      <p>Rua das Flores, 123 - Centro</p>
+
+      <p>(63) 99999-9999</p>
+
+      <p>contato@clinicapsicologia.com.br</p>
+
+      <p>© 2026 Todos os direitos reservados.</p>
+    </footer>
+
+    .whatsapp-btn:hover {
+    transform: scale(1.1);
+    background: #1EBE5D;
+}
+
+.whatsapp-btn img {
+    width: 38px;
+    height: 38px;
+}
+
+<a class="whatsapp-btn"
+   href="https://api.whatsapp.com/send?phone=5563999999999&text=Olá,%20gostaria%20de%20agendar%20uma%20consulta."
+   target="_blank">
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+         alt="WhatsApp">
+</a>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

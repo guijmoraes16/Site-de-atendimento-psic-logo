@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Consultas | Clínica PSI</title>
+
+    <link rel="stylesheet" href="css/main.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>
+          <i class="bi bi-heart-pulse-fill"></i>
+
+          Clínica PSI
+        </h2>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="index.html">
+          <i class="bi bi-grid-fill"></i>
+
+          Dashboard
+        </a>
+
+        <a href="pacientes.html">
+          <i class="bi bi-people-fill"></i>
+
+          Pacientes
+        </a>
+
+        <a href="psicologos.html">
+          <i class="bi bi-person-badge-fill"></i>
+
+          Psicólogos
+        </a>
+
+        <a href="servicos.html">
+          <i class="bi bi-clipboard2-pulse-fill"></i>
+
+          Serviços
+        </a>
+
+        <a href="horarios.html">
+          <i class="bi bi-clock-fill"></i>
+
+          Horários
+        </a>
+
+        <a class="active" href="consultas.html">
+          <i class="bi bi-calendar-check-fill"></i>
+
+          Consultas
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <strong id="usuarioNome"></strong>
+      </div>
+    </aside>
+
+    <!-- CONTEÚDO -->
+
+    <div class="content">
+      <header class="navbar">
+        <h2></h2>
+
+        <button class="btn btn-outline" onclick="Auth.logout()">
+          <i class="bi bi-box-arrow-right"></i>
+
+          Sair
+        </button>
+      </header>
+
+      <main class="main">
+        <div class="page-header d-flex justify-between align-center">
+          <div>
+            <h1>Consultas</h1>
+
+            <p>Gerencie os agendamentos da clínica.</p>
+          </div>
+
+          <a href="consulta-form.html" class="btn btn-primary">
+            <i class="bi bi-plus-circle-fill"></i>
+
+            Nova Consulta
+          </a>
+        </div>
+
+        <div class="card">
+          <div class="d-flex gap-1 mb-2">
+            <input
+              id="pesquisa"
+              class="form-control"
+              placeholder="Pesquisar paciente..."
+            />
+
+            <button id="btnPesquisar" class="btn btn-primary">
+              <i class="bi bi-search"></i>
+
+              Pesquisar
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table" id="tabelaConsultas">
+              <thead>
+                <tr>
+                  <th>Paciente</th>
+
+                  <th>Psicólogo</th>
+
+                  <th>Serviço</th>
+
+                  <th>Data</th>
+
+                  <th>Status</th>
+
+                  <th width="170">Ações</th>
+                </tr>
+              </thead>
+
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="js/utils.js"></script>
+
+    <script src="js/main.js"></script>
+
+    <script src="js/services/api.js"></script>
+
+    <script src="js/services/auth.js"></script>
+
+    <script src="js/services/consultaService.js"></script>
+
+    <script src="js/pages/consultas.js"></script>
+  </body>
+</html>

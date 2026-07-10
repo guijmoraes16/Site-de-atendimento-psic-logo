@@ -1,9 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Clínica de Psicologia</title>
+    <title>Clínica Psicologia</title>
 
     <link rel="stylesheet" href="css/style.css" />
 
@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -26,20 +26,13 @@
 
       <nav>
         <ul>
-          <li><a href="#">Início</a></li>
-
-          <li><a href="#especialidades">Especialidades</a></li>
-
-           <li><a href="agendar.html">Agendamento</a></li>
-
-          <li><a href="psicologos.html">Psicólogos</a></li>
-        
-          <li><a href="cadastro.html">Cadastro</a></li>
-          <li><a href="#contato">Contato</a></li>
+          <li><a href="inicio.html">Início</a></li>
+          <li><a href="inicio.html#especialidades">Especialidades</a></li>
+          <li><a href="psicologos-landin.html">Psicólogos</a></li>
+          <li><a href="inicio.html#contato">Contato</a></li>
+          <li><a href="login.html">Login</a></li>
         </ul>
       </nav>
-
-     
     </header>
 
     <!-- Banner Principal -->
@@ -54,8 +47,6 @@
         </p>
 
         <div class="botoes">
-         
-
           <button
             class="servicos"
             onclick="window.location.href = '#especialidades'"
@@ -74,9 +65,7 @@
     </section>
 
     <!-- Formulário -->
-        <!-- Nossa História -->
-
-    <section id="historia" class="historia">
+         <section id="historia" class="historia">
       <div class="container">
         <article class="historia-card">
           <span class="section-badge">Nossa história</span>
@@ -106,7 +95,6 @@
         </article>
       </div>
     </section>
-
 
     <!-- Especialidades -->
 
@@ -184,6 +172,28 @@
 
       <p>© 2026 Todos os direitos reservados.</p>
     </footer>
+
+    .whatsapp-btn:hover {
+    transform: scale(1.1);
+    background: #1EBE5D;
+}
+
+.whatsapp-btn img {
+    width: 38px;
+    height: 38px;
+}
+
+<a class="whatsapp-btn"
+   href="https://api.whatsapp.com/send?phone=5563999999999&text=Olá,%20gostaria%20de%20agendar%20uma%20consulta."
+   target="_blank">
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+         alt="WhatsApp">
+</a>
+
+
+
+
 
     <script src="script.js"></script>
   </body>

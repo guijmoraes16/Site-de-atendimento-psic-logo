@@ -1,0 +1,146 @@
+/* ======================================
+    PÁGINA
+====================================== */
+
+.auth-page {
+
+    min-height: 100vh;
+
+    background: linear-gradient(135deg, #17203b, #233b82);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 2rem;
+
+}
+
+
+/* ======================================
+    CARD
+====================================== */
+
+.auth-card {
+
+    width: 100%;
+
+    max-width: 460px;
+
+    background: var(--card);
+
+    border-radius: 20px;
+
+    box-shadow: var(--shadow);
+
+    padding: 3rem;
+
+}
+
+
+/* ======================================
+    LOGO
+====================================== */
+
+.auth-logo {
+
+    width: 80px;
+
+    height: 80px;
+
+    margin: auto;
+
+    margin-bottom: 1.5rem;
+
+    border-radius: 50%;
+
+    background: #edf4ff;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 2rem;
+
+    color: var(--primary);
+
+}
+
+
+/* ======================================
+    TÍTULOS
+====================================== */
+
+.auth-card h1 {
+
+    text-align: center;
+
+    color: var(--text);
+
+    font-size: 2rem;
+
+    margin-bottom: .6rem;
+
+}
+
+.auth-card p {
+
+    text-align: center;
+
+    color: var(--muted);
+
+    margin-bottom: 2rem;
+
+}
+
+
+/* ======================================
+    FORM
+====================================== */
+
+.auth-card form {
+
+    margin-top: 2rem;
+
+}
+
+.auth-card .btn {
+
+    width: 100%;
+
+}
+
+
+/* ======================================
+    RODAPÉ
+====================================== */
+
+.auth-footer {
+
+    margin-top: 2rem;
+
+    text-align: center;
+
+    color: var(--muted);
+
+}
+
+.auth-footer a {
+
+    color: var(--primary);
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+}
+
+.auth-footer a:hover {
+
+    text-decoration: underline;
+
+}
