@@ -85,7 +85,7 @@ js/
 
 assets/
 
-index.html
+inicio.html
 login.html
 pacientes.html
 paciente-form.html

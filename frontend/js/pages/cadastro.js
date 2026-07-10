@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   if (Auth.getToken()) {
-    window.location.href = "index.html";
+    window.location.href = "inicio.html";
     return;
   }
 

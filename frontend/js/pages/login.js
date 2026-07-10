@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   if (Auth.getToken()) {
-    window.location.href = "index.html";
+    window.location.href = "inicio.html";
     return;
   }
 
@@ -29,7 +29,7 @@ async function login(event) {
       senha
     );
 
-    window.location.href = "index.html";
+    window.location.href = "inicio.html";
   } catch (erro) {
     Utils.mostrarErro(erro.message);
   }
