@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
 from rotas.auth import roteador as auth_roteador
@@ -46,3 +47,6 @@ def root():
         "saude": "/saude",
         "saude_banco": "/saude/db",
     }
+
+
+app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")

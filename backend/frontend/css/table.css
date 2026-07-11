@@ -1,0 +1,40 @@
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.table thead {
+    background: #f8fafc;
+}
+
+.table th {
+    text-align: left;
+    padding: 16px;
+    font-weight: 700;
+    color: var(--text);
+    border-bottom: 2px solid var(--border);
+}
+
+.table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+.table tbody tr {
+    transition: .2s;
+}
+
+.table tbody tr:hover {
+    background: #f8fbff;
+}
+
+.table td:last-child {
+    white-space: nowrap;
+}
