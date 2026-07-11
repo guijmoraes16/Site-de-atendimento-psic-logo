@@ -1,5 +1,5 @@
 const API = {
-  BASE_URL: "https://54.167.231.76:8000",
+  BASE_URL: "http://54.167.231.76:8000",
 
   async request(endpoint, method = "GET", body = null, auth = false) {
     const headers = {
